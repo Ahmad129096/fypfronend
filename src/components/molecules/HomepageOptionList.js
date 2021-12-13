@@ -3,6 +3,7 @@ import { Button, Link } from "@mui/material";
 import DropDown from '../atoms/DropDown';
 
 const HomePageList = () => {
+    let token = localStorage.getItem("token");
     let list = [
         {title:'Categories'},
         {title:'Ready to ship'},
@@ -35,7 +36,8 @@ const HomePageList = () => {
      
         <li>
             <Button style={{color:'black'}} onClick={()=>{
-                window.location.href = "/vendor"
+
+                window.location.href = token ? "/vendor" : "/login"
             }}>Post your pet</Button>
         </li>
   

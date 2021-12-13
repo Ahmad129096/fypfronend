@@ -39,18 +39,7 @@ const Search = () => {
     axios.get(`http://localhost:5000/api/products`,{headers: { Authorization: token }})
     .then(function (response) {
       console.log(response);
-      if(link == 'exclusive_products')
-      {
-        setProducts(response.data.data.filter(t=>t.category.name === 'Exclusive Pets'))
-      }
-      else if(link == 'discount')
-      {
-        setProducts(response.data.data.filter(t=>t.category.name === 'Discounts'))
-      }
-      else
-      {
-        setProducts(response.data.data.filter(t=>t.category.name == link))
-      }
+      setProducts(response.data.data.filter(t=>t.name.toLowerCase().includes(link.toLowerCase())))
     
     })
     .catch(function (error) {

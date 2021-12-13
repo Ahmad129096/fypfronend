@@ -31,12 +31,19 @@ const theme = createTheme();
 
 export default function AdminSignup() {
   const { enqueueSnackbar } = useSnackbar();
+  const [vName,setVName] = React.useState('');
+ 
+
+  const handleVName=(e)=>{
+    setVName(e.target.value.replace(/[0-9]/g, ''));
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
     let obj ={
-      name: data.get('name'),
+      name: vName,
       username: data.get('userName'),
       email: data.get('email'),
       password: data.get('password')
@@ -77,7 +84,7 @@ export default function AdminSignup() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" Validate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -92,7 +99,7 @@ export default function AdminSignup() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  required
+                  required={true}
                   fullWidth
                   id="userName"
                   label="Username"
@@ -102,17 +109,18 @@ export default function AdminSignup() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
+                 required={true}
+                 fullWidth
+                 type="email"
+                 id="email"
+                 label="Email Address"
+                 name="email"
+                 autoComplete="email"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
+                  required={true}
                   fullWidth
                   name="password"
                   label="Password"

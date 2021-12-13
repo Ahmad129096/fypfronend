@@ -21,7 +21,7 @@ export default function DropDown(props) {
 
 
   let getCategories = () =>{
-    axios.get(`http://localhost:5000/api/categories`, {headers:{'Authorization':token}})
+    axios.get(`http://localhost:5000/api/categories`, {headers:{'Authorization':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWI3YTJiNjg5ZWEyNTRiMGMxYTE0ODYiLCJpYXQiOjE2Mzk0MjQ2OTR9.IaktufTAvVVOhlB9C3_8AbVoDyDMqQgSdRcw2RmmoRQ'}})
     .then(function (response) {
       setCategory(response.data.data);
     })

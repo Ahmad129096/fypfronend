@@ -10,7 +10,6 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
-import LogoutIcon from '@mui/icons-material/Logout';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
@@ -19,7 +18,9 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import axios from 'axios';
 import { useSnackbar } from 'notistack';
+import { isTemplateHead } from 'typescript';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -68,9 +69,53 @@ export default function NavBar() {
   let token = localStorage.getItem('token');
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [product,setProduct] = React.useState([]);
+  const [searchBool,setSearchBool] = React.useState(false);
+  const [category,setCategory] = React.useState([]);
+
+  let productList = [];
+
+  let searchTerm=(e)=>{
+    setSearch(e.target.value)
+    if(search?.length > 0)
+    {
+      setSearchBool(true)
+    }
+    else
+    {
+      setSearchBool(false);
+    }
+  }
+
+
+  let getProducts = () => {
+      axios
+        .get("http://localhost:5000/api/products", {
+          headers: {
+            Authorization:
+              token,
+          },
+        })
+        .then(function (response) {
+          productList = response.data.data;
+          setProduct(productList);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    };
+  
+ React.useEffect(()=>{
+    getProducts();
+  },[])
+
+
+  console.log('product',product)
+
 
   let handleSearch=(e)=>{
     setSearch(e.target.value)
+
   }
 
   console.log(search)
@@ -135,9 +180,8 @@ export default function NavBar() {
 
   return (
     <Box sx={{ flexGrow: 1}}>
-      <AppBar style={{width:'100%',backgroundColor:'black'}} position="static">
+      <AppBar style={{width:'100%'}} position="static" onClick={()=>setSearchBool(false)}>
         <Toolbar>
-    
           <a href="/" style={{textDecoration:'none',color:'white'}}>
           <Typography
             variant="h6"
@@ -145,28 +189,41 @@ export default function NavBar() {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            Petchase
+            PetChase
           </Typography>
           </a>
-          <Search >
-            <SearchIconWrapper>
-              <SearchIcon  />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
+          <Search style={{display:'block'}} >
+                      <StyledInputBase
+                          style={{ width:500 }}
+              placeholder="Search Here .."
               inputProps={{ 'aria-label': 'search' }}
-              onChange={handleSearch}
+              onChange={searchTerm}
               value={search}
             />
+
+
           </Search>
-              <Button
-               onClick={()=>{
+
+          <Button style={{color:'white'}} onClick={()=>{
                 window.location.href = `/search/${search}`;
-              }}
-               style={{color:'white'}}>Search</Button>
+              }} >
+            Search 
+          </Button>
+        
           <Box sx={{ flexGrow: 1 }} />
+    
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-   
+          <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+              <Badge  color="error">
+                <ShoppingCartIcon onClick={()=>{
+              token ? window.location.href="/cart" :
+              enqueueSnackbar('Please login first to view this page!', {
+                variant: 'error',
+                autoHideDuration: 5000
+              });
+            }} />
+              </Badge>
+            </IconButton>
             
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge  color="error">
@@ -187,8 +244,6 @@ export default function NavBar() {
             }} />
               </Badge>
             </IconButton>
-           
-    
     
            
           </Box>
@@ -208,6 +263,24 @@ export default function NavBar() {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+      {
+              searchBool && product?.filter((val)=>{
+                if(search=="")
+                {
+                  return val.name || val.name;
+                }
+               else if(val.name.toLowerCase().includes(search.toLowerCase()) )
+               {
+                 return  val.name;
+               }
+              })?.map((val,key)=>{
+                return(
+                  <div style={{marginLeft:160,backgroundColor:'##f0f0f0'}} key={key}>
+                    <a href={`/search/${val.name}`} >{val.name }</a>
+                    </div>
+                )
+              })
+            }
     </Box>
   );
 }

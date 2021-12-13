@@ -54,6 +54,7 @@ let Message = () => {
     })
     .catch((error)=>{
       console.log(error)
+      console.log("kutta Billa")
     })
   },5000)
 

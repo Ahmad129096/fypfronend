@@ -14,7 +14,7 @@ const HomeListItems = () => {
         .get("http://localhost:5000/api/products", {
           headers: {
             Authorization:
-              token,
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWI3YTJiNjg5ZWEyNTRiMGMxYTE0ODYiLCJpYXQiOjE2Mzk0MjQ2OTR9.IaktufTAvVVOhlB9C3_8AbVoDyDMqQgSdRcw2RmmoRQ',
           },
         })
         .then(function (response) {

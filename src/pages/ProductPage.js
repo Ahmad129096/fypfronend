@@ -262,7 +262,12 @@ const ProductPage = () => {
   }, [array, cartItem]);
 
   React.useEffect(()=>{
-    console.log('rerendered')
+    if(!token)
+      {
+       (()=>{
+         window.location.href="/login"
+       })();
+      }
   },[rate])
   React.useLayoutEffect(()=>{
 

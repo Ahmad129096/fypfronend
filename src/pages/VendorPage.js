@@ -625,6 +625,13 @@ console.log(collection);
   };
 
   React.useEffect(() => {
+
+    if(!vendorToken)
+    {
+     (()=>{
+       window.location.href="/login"
+     })();
+    }
     getCollections();
     getCategories();
     getSubCategories();
@@ -633,6 +640,7 @@ console.log(collection);
     getNews();
     getOrders();
     getVendor();
+    
   }, []);
 
 
