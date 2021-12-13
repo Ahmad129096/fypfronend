@@ -180,7 +180,7 @@ export default function NavBar() {
 
   return (
     <Box sx={{ flexGrow: 1}}>
-      <AppBar style={{width:'100%'}} position="static" onClick={()=>setSearchBool(false)}>
+      <AppBar style={{width:'100%', backgroundColor: 'black'}} position="static" onClick={()=>setSearchBool(false)}>
         <Toolbar>
           <a href="/" style={{textDecoration:'none',color:'white'}}>
           <Typography
@@ -213,17 +213,6 @@ export default function NavBar() {
           <Box sx={{ flexGrow: 1 }} />
     
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-          <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge  color="error">
-                <ShoppingCartIcon onClick={()=>{
-              token ? window.location.href="/cart" :
-              enqueueSnackbar('Please login first to view this page!', {
-                variant: 'error',
-                autoHideDuration: 5000
-              });
-            }} />
-              </Badge>
-            </IconButton>
             
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge  color="error">
