@@ -21,6 +21,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import { isTemplateHead } from 'typescript';
+import jwtDecode from 'jwt-decode';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -72,6 +73,7 @@ export default function NavBar() {
   const [product,setProduct] = React.useState([]);
   const [searchBool,setSearchBool] = React.useState(false);
   const [category,setCategory] = React.useState([]);
+  let userId = jwtDecode(token);
 
   let productList = [];
 
@@ -217,7 +219,7 @@ export default function NavBar() {
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge  color="error">
                 <MailIcon onClick={()=>{
-                      token ? window.location.href="/message" :
+                      userId._id != '61b7a2b689ea254b0c1a1486' ? window.location.href="/message" :
                       enqueueSnackbar('Please login first to view this page!', {
                         variant: 'error',
                         autoHideDuration: 5000
