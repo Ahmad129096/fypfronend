@@ -48,7 +48,7 @@ const ProductPage = () => {
   var url = window.location.pathname;
   var id = url.substring(url.lastIndexOf("/") + 1);
 
-  let token = localStorage.getItem("token");
+  let token = localStorage.getItem("token") || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWI3YTJiNjg5ZWEyNTRiMGMxYTE0ODYiLCJpYXQiOjE2Mzk0MjQ2OTR9.IaktufTAvVVOhlB9C3_8AbVoDyDMqQgSdRcw2RmmoRQ';
   let userId = jwtDecode(token);
 
   console.log(userId);
@@ -82,8 +82,10 @@ const ProductPage = () => {
     let obj = {
       rating: newRating,
     };
-
+    if(userId._id != '61b7a2b689ea254b0c1a1486')
+    {
     (function () {
+
       axios
         .post(`http://localhost:5000/api/products/ratings/${id}`, obj, {
           headers: { Authorization: token },
@@ -94,11 +96,18 @@ const ProductPage = () => {
         .catch(function (error) {
           console.log(error);
         });
+ 
     })();
     enqueueSnackbar("Rating placed!", {
       variant: "success",
       autoHideDuration: 2000,
     });
+  }
+  else
+  {
+    window.location.href="/login";
+  }
+    
   };
 
   let handleAddress = (e) => {
@@ -274,6 +283,8 @@ const ProductPage = () => {
   },[rate])
 
   let messageNow = () => {
+    if(userId._id != '61b7a2b689ea254b0c1a1486')
+    {
     let obj = {
       user: userId._id,
       vendor: product?.user?._id,
@@ -297,6 +308,11 @@ const ProductPage = () => {
           console.log(err);
         });
     }
+  }
+  else
+  {
+    window.location.href="/login"
+  }
   };
   console.log("guys agaya", product?.user?._id);
   console.log(allChat);

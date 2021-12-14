@@ -34,7 +34,7 @@ let Message = () => {
   let allChats = () =>{
     axios.get('http://localhost:5000/api/chats', {headers:{'Authorization':token}})
     .then((response)=>{
-      setAllChat(response.data.data.filter(t=> userId === t.user._id || t.vendor._id));
+      setAllChat(response.data.data.filter(t=> userId === t?.user?._id || t?.vendor?._id));
     })
     .catch((error)=>{
       console.log(error)
@@ -43,13 +43,13 @@ let Message = () => {
 
   console.log(allChat,'all')
   let getChat = (id) =>{
-    console.log('clicked')
+    console.log('clicked',id)
     setInterval(()=>{
     setChatId(id);
     axios.get('http://localhost:5000/api/chats', {headers:{'Authorization':token}})
     .then((response)=>{
-      console.log('chat recieved',response.data.data.filter(t=> t.vendor._id === userId));
-      let array = response.data.data.filter(t=> t._id === id)
+      console.log('chat recieved',response.data.data.filter(t=> t?.vendor?._id == userId));
+      let array = response.data.data.filter(t=> t?._id == id)
       setChat(array[0].messages)
     })
     .catch((error)=>{

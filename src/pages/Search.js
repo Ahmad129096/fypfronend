@@ -14,15 +14,16 @@ const Search = () => {
 
 
     const [products,setProducts] = useState([]);
+    const [productx,setProductx] = useState([]);
   const [minPrice,setMinPrice] = useState(0);
   const [maxPrice,setMaxPrice] = useState(0);
 
-  let token = localStorage.getItem("token");
+  let token = localStorage.getItem("token") || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWI3YTJiNjg5ZWEyNTRiMGMxYTE0ODYiLCJpYXQiOjE2Mzk0MjQ2OTR9.IaktufTAvVVOhlB9C3_8AbVoDyDMqQgSdRcw2RmmoRQ';
   let jwt = token ? jwtDecode(token): '';
   var url = window.location.pathname;
   var category = url.substring(url.lastIndexOf("/") + 1);
-  var link = category.replace('%20',' ');
-  console.log(link);
+  var link = category.replace(/%20/g, " ");
+  console.log(link,'linkkk');
 
   console.log(category);
 
@@ -47,6 +48,19 @@ const Search = () => {
     });
   }
 
+  
+  let getCategoryItem = () => {
+    axios.get(`http://localhost:5000/api/products`,{headers: { Authorization: token }})
+    .then(function (response) {
+      console.log(response);
+      setProductx(response.data.data.filter(t=>t.description.toLowerCase().includes(link.toLowerCase())))
+    
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
   let handleFilter = () =>{
     
     axios.get('http://localhost:5000/api/products/search/advance?minPrice&maxPrice',
@@ -62,6 +76,7 @@ const Search = () => {
   
   useEffect(()=>{
     getCategoryItems();
+    getCategoryItem();
   },[])
 
   useEffect(()=>{
@@ -127,6 +142,27 @@ const Search = () => {
 
           />
         </Grid>
+        
+
+        );
+      })}
+
+{productx?.map(function (item, i) {
+        return (
+          <Grid item lg={4} md={6} sm={6} xs={12} style={{ marginTop: "20px" }}>
+          <DetailCard
+            type={item.name}
+            image={`https://fyptest.blob.core.windows.net/images/${item.images[0]}`}
+            price={item.price}
+            desc={item.description}
+            id={item._id}
+            img={`https://fyptest.blob.core.windows.net/images/${item?.vendor?.appartment}`}
+            rate={item.ratings.value}
+           
+
+          />
+        </Grid>
+        
 
         );
       })}

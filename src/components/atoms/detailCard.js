@@ -45,7 +45,8 @@ export default function RecipeReviewCard(props) {
   };
 
   let wishList = () => {
-
+    if(token)
+    {
     let obj = {
       specs: [userId._id],
     };
@@ -56,6 +57,11 @@ export default function RecipeReviewCard(props) {
       variant: 'success',
       autoHideDuration: 2000
     });
+  }
+  else
+  {
+    window.location.href="/login"
+  }
   }
 
 

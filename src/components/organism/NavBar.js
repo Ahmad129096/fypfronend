@@ -66,7 +66,7 @@ export default function NavBar() {
 
   const [search,setSearch] = React.useState();
   const { enqueueSnackbar } = useSnackbar();
-  let token = localStorage.getItem('token');
+  let token = localStorage.getItem('token') || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWI3YTJiNjg5ZWEyNTRiMGMxYTE0ODYiLCJpYXQiOjE2Mzk0MjQ2OTR9.IaktufTAvVVOhlB9C3_8AbVoDyDMqQgSdRcw2RmmoRQ';
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [product,setProduct] = React.useState([]);
@@ -265,7 +265,11 @@ export default function NavBar() {
               })?.map((val,key)=>{
                 return(
                   <div style={{marginLeft:160,backgroundColor:'##f0f0f0'}} key={key}>
-                    <a href={`/search/${val.name}`} >{val.name }</a>
+                   <div><a href={`/search/${val.name}`} >{val.name }</a>
+                   </div> 
+                   <div>
+                    <a href={`/search/${val.description}`} >{val.description }</a>
+                    </div> 
                     </div>
                 )
               })
