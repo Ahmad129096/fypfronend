@@ -686,7 +686,7 @@ console.log(collection);
           <Typography variant="h6" noWrap component="div">
             Admin Dashboard
           </Typography>
-          <div style={{display:'flex',width:'100%',justifyContent:'flex-end',color:'white'}}>
+          <div style={{display:'flex',width:'80%',justifyContent:'flex-end',color:'white'}}>
           <Button style={{color:'white'}} onClick={()=>{
               localStorage.clear();
               window.location.href="/adminlogin"

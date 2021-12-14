@@ -56,7 +56,8 @@ export default function AdminSignup() {
         autoHideDuration: 2000
       });
       setTimeout(function() {
-        window.location.href = '/adminlogin'
+        localStorage.setItem('admintoken',`${response.data.data.token}`);
+        window.location.href = '/'
       }, 2000);
 
     })

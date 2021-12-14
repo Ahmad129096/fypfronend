@@ -70,7 +70,8 @@ export default function SignUp() {
     axios.post('http://localhost:5000/api/users', obj)
     .then(function (response) {
       console.log(response.data.data)
-      window.location.href = '/login'
+      localStorage.setItem('token',`${response.data.data.token}`);
+      window.location.href = '/'
     })
     .catch(function (error) {
       console.log(error);

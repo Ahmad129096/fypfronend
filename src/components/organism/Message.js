@@ -50,13 +50,13 @@ let Message = () => {
     .then((response)=>{
       console.log('chat recieved',response.data.data.filter(t=> t?.vendor?._id == userId));
       let array = response.data.data.filter(t=> t?._id == id)
-      setChat(array[0].messages)
+      setChat(array[0]?.messages)
     })
     .catch((error)=>{
       console.log(error)
       console.log("kutta Billa")
     })
-  },5000)
+  },2000)
 
   }
 

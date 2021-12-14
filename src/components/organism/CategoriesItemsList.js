@@ -129,11 +129,11 @@ const CategoriesItems = () => {
           <Grid item lg={4} md={6} sm={6} xs={12} style={{ marginTop: "20px" }}>
           <DetailCard
             type={item.name}
-            image={`https://fyptest.blob.core.windows.net/images/${item?.images[0]}`}
+            image={`https://fyptest1.blob.core.windows.net/images/${item?.images[0]}`}
             price={item.price}
             desc={item.description}
             id={item._id}
-            img={`https://fyptest.blob.core.windows.net/images/${item?.vendor?.appartment}`}
+            img={`https://fyptest1.blob.core.windows.net/images/${item?.vendor?.appartment}`}
             rate={item.ratings.value}
            
 

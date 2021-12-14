@@ -231,7 +231,7 @@ export default function NavBar() {
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge  color="error">
                 <AccountCircle onClick={()=>{
-              token ? window.location.href="/user" : window.location.href="/login"
+              userId._id != '61b7a2b689ea254b0c1a1486' ? window.location.href="/user" : window.location.href="/login"
             }} />
               </Badge>
             </IconButton>

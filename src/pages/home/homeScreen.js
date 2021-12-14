@@ -74,13 +74,13 @@ const HomeScreen = () => {
       <Grid item md={1}></Grid>
 
       <Grid item md={10}>
-       <div style={{marginRight:20,marginTop:15}}>
+       <div style={{marginRight:20,marginTop:15,marginBottom:0}}>
        <DemoCarousel
 />
        </div>
       </Grid>
   
-      <Grid item md={1}></Grid>
+      {/* <Grid item md={1}></Grid>
       <Grid item md={1}></Grid>
       <Grid item md={10} style={{marginTop:20}}> 
 
@@ -90,13 +90,18 @@ const HomeScreen = () => {
 
       <Grid item md={1}></Grid>
       <Grid item md={10}><Divider/></Grid>
-      <Grid item md={1}></Grid>
+      <Grid item md={1}></Grid> */}
   {    /*Customized Product Section */}
 
 <Grid container>
 <Grid item md={1}></Grid>
 
 <Grid item md={10}>
+<div style={{textAlign: 'center',fontWeight: 'bold',margin:'auto' }}>
+    <h2> PETS ARE NOT OUR WHOLE LIFE </h2> 
+    <h2> BUT THEY MAKE OUR LIVES WHOLE</h2>
+    <h5 style={{marginLeft:'65%',marginRight:'25%'}}>~Roger Caras</h5>
+  </div>
  <CustomizedProduct/>
 </Grid>
 

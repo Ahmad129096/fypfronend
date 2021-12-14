@@ -12,7 +12,9 @@ const HomePageList = () => {
         {title:'Blogs'},
     ]
     return ( 
-        <ul style={{display:'flex',listStyle:'none'}}>
+       
+        <ul style={{display:'flex',listStyle:'none',alignItems:'center',
+        justifyContent:'center',backgroundColor:"#a3a19d",width:'100%'}}>
         <li style={{color:'black'}}>
           <DropDown  title={list[0].title} />
         </li>
@@ -30,18 +32,19 @@ const HomePageList = () => {
         </li>
         <li>
             <a style={{textDecoration:'none'}} href="/blog">
-            <Button style={{color:'black'}}>Blogs</Button>
+                <Button style={{color:'black'}}>Blogs</Button>
             </a>
         </li>
      
         <li>
             <Button style={{color:'black'}} onClick={()=>{
-
+                
                 window.location.href = token ? "/vendor" : "/login"
             }}>Post your pet</Button>
         </li>
   
     </ul>
+            
      );
 }
  

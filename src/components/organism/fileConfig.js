@@ -1,9 +1,9 @@
 // THIS IS SAMPLE CODE ONLY - NOT MEANT FOR PRODUCTION USE
 import { BlobServiceClient } from '@azure/storage-blob';
 
-const sasToken = 'sp=racwdl&st=2021-11-12T19:26:38Z&se=2021-12-14T03:26:38Z&sv=2020-08-04&sr=c&sig=vWA1PPnIanbb2KIcuf5uQ6tege0%2F%2B%2FkLCNifvixDdjg%3D'
+const sasToken = 'sp=racwdli&st=2021-12-14T18:36:11Z&se=2022-02-24T02:36:11Z&sv=2020-08-04&sr=c&sig=UOitP%2Fe0DdFgiRxMHPCxFjgbiQhJAwXbcDBYIfNvgHc%3D'
 const containerName = 'images'
-const storageAccountName ='fyptest' || 'storagename' || 'azeem-azure';
+const storageAccountName ='fyptest1' || 'storagename' || 'azeem-azure';
 
   
   // Feature flag - disable storage feature to app if not configured
