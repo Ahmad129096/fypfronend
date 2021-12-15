@@ -1,3 +1,4 @@
+
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -14,6 +15,8 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
+import {useHistory,NavLink} from 'react-router-dom'
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -32,6 +35,7 @@ const theme = createTheme();
 export default function AdminSignup() {
   const { enqueueSnackbar } = useSnackbar();
   const [vName,setVName] = React.useState('');
+  const history = useHistory();
  
 
   const handleVName=(e)=>{
@@ -57,7 +61,7 @@ export default function AdminSignup() {
       });
       setTimeout(function() {
         localStorage.setItem('admintoken',`${response.data.data.token}`);
-        window.location.href = '/'
+        history.push("/")
       }, 2000);
 
     })
@@ -144,9 +148,9 @@ export default function AdminSignup() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/adminlogin" variant="body2">
+                <NavLink to="/adminlogin" variant="body2">
                   Already have an account? Sign in
-                </Link>
+                </NavLink>
               </Grid>
             </Grid>
           </Box>

@@ -3,12 +3,14 @@ import React from "react";
 import SimpleCard from "../atoms/simpleCard";
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import axios from 'axios';
+import {useHistory, NavLink} from 'react-router-dom'
 
 const CustomizedProduct = () => {
 
   let token = localStorage.getItem('token');
   const [products,setProducts] = React.useState([]);
   const [topRated,setTopRated] = React.useState([]);
+  const history =useHistory()
 
  
   let getProducts = () =>{
@@ -44,7 +46,7 @@ const CustomizedProduct = () => {
   },[])
 
   let redirectToCategory = (name) => {
-    window.location.href = `/category/${name}`
+    history.push(`/category/${name}`) 
     console.log('clicked');
   }
 

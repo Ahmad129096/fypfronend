@@ -7,8 +7,8 @@ import NativeSelect from '@mui/material/NativeSelect';
 export default function Select() {
   return (
     <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
-        <InputLabel variant="standard" htmlFor="uncontrolled-native">
+      {/* <FormControl fullWidth>
+        {/* <InputLabel variant="standard" htmlFor="uncontrolled-native">
           Featured
         </InputLabel>
         <NativeSelect
@@ -23,7 +23,7 @@ export default function Select() {
           <option value={30}>Discount- Low to High </option>
           <option value={40}>Discount- High to Low </option>
         </NativeSelect>
-      </FormControl>
+      </FormControl> */} 
     </Box>
   );
 }

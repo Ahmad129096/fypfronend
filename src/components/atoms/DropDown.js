@@ -4,6 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import axios from 'axios';
 import CategoriesItems from '../organism/CategoriesItemsList';
+import {NavLink} from 'react-router-dom'
 
 export default function DropDown(props) {
 
@@ -38,6 +39,7 @@ getCategories();
   return (
     <div>
       <Button
+      style={{fontFamily: "serif", fontSize: 20,color:'black'}}
         id="basic-button"
         aria-controls="basic-menu"
         aria-haspopup="true"
@@ -57,9 +59,9 @@ getCategories();
       >
         {category?.map((item,i)=>{
           return(
-          <a href={`/category/${item.name}`} style={{textDecoration:'none'}}>
+          <NavLink to={`/category/${item.name}`} style={{textDecoration:'none', color: 'black'}}>
               <MenuItem  onClick={handleClose}>{item.name}</MenuItem>
-            </a>
+            </NavLink>
           )
         })}
       </Menu>

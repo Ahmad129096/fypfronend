@@ -71,7 +71,7 @@ const CategoriesItems = () => {
 
   return (
     <Grid container>
-      <Grid item md={12}>
+      {/* <Grid item md={12}>
         <Typography variant="h4">Deals and Promotions</Typography>
       </Grid>
       <Grid item md={12}>
@@ -87,9 +87,9 @@ const CategoriesItems = () => {
         {products?.length > 0 ? <div> </div> : <div> No Product found! </div>
       }
         </Typography>
-      </Grid>
+      </Grid> */}
 
-      <Grid item md={7}>
+      {/* <Grid item md={7}>
           <div style={{display:'flex'}}>
         <label style={{marginRight:'20px'}}>Sort by:</label> 
         <Select />
@@ -116,7 +116,7 @@ const CategoriesItems = () => {
         <Button onClick={handleFilter}>
           Apply
         </Button>
-      </Grid>
+      </Grid> */}
       <Grid item md={5}></Grid>
       <Grid item md={12}>
           <br/>

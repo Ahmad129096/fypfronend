@@ -33,6 +33,8 @@ import axios from "axios";
 import jwtDecode from "jwt-decode";
 import { flexbox } from "@mui/system";
 import { Message, Money } from "@material-ui/icons";
+import {useHistory,NavLink} from 'react-router-dom'
+import { HistoryToggleOff } from "@mui/icons-material";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -44,6 +46,7 @@ const ProductPage = () => {
   const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
   const [product, setProduct] = useState();
   const [itemNo, setItemNo] = useState(1);
+  const history = useHistory()
 
   var url = window.location.pathname;
   var id = url.substring(url.lastIndexOf("/") + 1);
@@ -105,7 +108,7 @@ const ProductPage = () => {
   }
   else
   {
-    window.location.href="/login";
+    history.push("/login")
   }
     
   };
@@ -124,11 +127,11 @@ const ProductPage = () => {
     setCartBool(true);
     if (array.find((e) => e.name == product.name)) {
       console.log("Duplicate Item");
-      window.location.href="/cart"
+      history.push("/cart")
     } else {
       setArray([...array, product]);
       setCartItem([...cartItem, { productId: product._id, quantity: 1 }]);
-      window.location.href="/cart"
+      history.push("/cart")
     }
   };
 
@@ -215,7 +218,7 @@ const ProductPage = () => {
           autoHideDuration: 2000,
         });
         setTimeout(function () {
-          window.location.href = "/user";
+          history.push("/user")
         }, 2000);
       })
       .catch(function (error) {
@@ -239,7 +242,7 @@ const ProductPage = () => {
         { headers: { Authorization: token } }
       )
       .then(function (response) {
-        window.location.href = "/zapp";
+        history.push("/zapp")
       })
       .catch(function (error) {
         console.log(error);
@@ -274,7 +277,7 @@ const ProductPage = () => {
     if(!token)
       {
        (()=>{
-         window.location.href="/login"
+        history.push("/login")
        })();
       }
   },[rate])
@@ -294,7 +297,7 @@ const ProductPage = () => {
       (t) => product?.user?._id == t.user._id && userId._id == t.user._id
     );
     if (arr.length > 0) {
-      window.location.href = `/message/${arr[0]._id}`;
+      history.push(`/message/${arr[0]._id}`);
     } else {
       axios
         .post("http://localhost:5000/api/chats", obj, {
@@ -302,7 +305,7 @@ const ProductPage = () => {
         })
         .then((response) => {
           console.log(response.data);
-          window.location.href = `/message/${response.data.data._id}`;
+          history.push(`/message/${response.data.data._id}`) 
         })
         .catch((err) => {
           console.log(err);
@@ -311,7 +314,7 @@ const ProductPage = () => {
   }
   else
   {
-    window.location.href="/login"
+    history.push("/login")
   }
   };
   console.log("guys agaya", product?.user?._id);
@@ -442,7 +445,6 @@ const ProductPage = () => {
                     />
                     <Typography variant="h6">
                       &nbsp; &nbsp; Seller: {product?.user?.name}
-                      {"these are username", product?.user?.name}
                     </Typography>
                   </div>
                   <div
@@ -482,7 +484,7 @@ const ProductPage = () => {
                       onClick={messageNow}
                       style={{ color: "#3c568f", fontSize: "40px" }}
                     />
-                    <Typography variant="h6">&nbsp; &nbsp; Message</Typography>
+                    <Typography variant="h6" onClick={messageNow} style={{cursor: 'pointer'}} >&nbsp; &nbsp; Message</Typography>
                   </div>
                 </div>
               </Grid>

@@ -35,7 +35,7 @@ import EditProduct from "../components/organism/EditProduct";
 import FilesDropzone from "../components/organism/filesDropZone";
 import FileUpload from "../components/organism/fileUpload";
 import jwtDecode from "jwt-decode";
-
+import { useHistory, NavLink} from 'react-router-dom'
 const drawerWidth = 240;
 
 function VendorPage(props) {
@@ -84,6 +84,8 @@ function VendorPage(props) {
   const [priceError,setPriceError] = React.useState();
   const [stockError,setStockError] = React.useState();
   const [imageError,setImageError] = React.useState();
+  const [active, setActive] = React.useState('info')
+  const history = useHistory()
   let [btnBool, setBtnBool] = React.useState();
 
 
@@ -180,7 +182,7 @@ function VendorPage(props) {
         autoHideDuration: 2000
       });
       setTimeout(function() {
-        window.location.href = '/vendor';
+        history.push("/vendor")
       }, 2000);
 
     })
@@ -200,6 +202,7 @@ e.preventDefault();
 
 
   let handleInfo = () => {
+    setActive('info');
     setInfoBool(true);
     setProductBoolean(false);
     setListProductBoolean(false);
@@ -212,6 +215,7 @@ e.preventDefault();
 
 
   let handleProduct = () => {
+    setActive('add')
     setInfoBool(false);
       setProductBoolean(true);
       setListProductBoolean(false);
@@ -223,6 +227,7 @@ e.preventDefault();
   }
 
   let handleListProduct = () => {
+    setActive('list')
     setInfoBool(false);
     setProductBoolean(false);
     setListProductBoolean(true);
@@ -235,6 +240,7 @@ e.preventDefault();
 
 
 let handleListCategories = () => {
+  setActive("cat")
   setInfoBool(false);
     setProductBoolean(false);
     setListProductBoolean(false);
@@ -352,7 +358,7 @@ let handleOrders = () => {
         autoHideDuration: 2000
       });
       setTimeout(function() {
-        window.location.href = '/vendor';
+        history.push("/vendor")
       }, 2000);
     })
     .catch(function (error) {
@@ -375,7 +381,7 @@ let handleOrders = () => {
         autoHideDuration: 2000
       });
       setTimeout(function() {
-        window.location.href = '/vendor';
+        history.push("/vendor")
       }, 2000);
 
     })
@@ -399,7 +405,7 @@ let handleOrders = () => {
         autoHideDuration: 2000
       });
       setTimeout(function() {
-        window.location.href = '/vendor';
+        history.push("/vendor")
       }, 2000);
 
     })
@@ -445,7 +451,7 @@ let handleOrders = () => {
           autoHideDuration: 2000
         });
         setTimeout(function() {
-          window.location.href = '/vendor';
+          history.push("/vendor")
         }, 2000);
   
       })
@@ -548,7 +554,7 @@ let handleOrders = () => {
         autoHideDuration: 2000
       });
       setTimeout(function() {
-        window.location.href = '/vendor';
+        history.push("/vendor")
       }, 2000);
      } )
   }
@@ -598,7 +604,7 @@ console.log(collection);
     axios.patch(`http://localhost:5000/api/users/${decode._id}`, obj, {headers:{'Authorization':vendorToken}})
     .then(function (response) {
      console.log('information updated');
-     window.location.href="/vendor"
+     history.push("/vendor")
 
     })
     .catch(function (error) {
@@ -629,7 +635,7 @@ console.log(collection);
     if(!vendorToken)
     {
      (()=>{
-       window.location.href="/login"
+      history.push("/login")
      })();
     }
     getCollections();
@@ -667,7 +673,7 @@ console.log(collection);
         autoHideDuration: 2000
       });
       setTimeout(function() {
-        window.location.href = '/vendor';
+        history.push("/vendor")
       }, 2000);
 
     })
@@ -686,6 +692,9 @@ console.log(collection);
       });
     }
   }
+  const activeStyle = {
+    color: "red"
+  }
 
  console.log(editProduct)
   const drawer = (
@@ -699,34 +708,50 @@ console.log(collection);
       <Toolbar />
       <Divider />
       <List onClick={handleInfo} >
-          <ListItem >
-            <ListItemIcon>
+      <ListItem style={{cursor:'pointer'}} >
+            {active === 'info' ? 
+            <ListItemIcon style={activeStyle}>
              Update Information
-            </ListItemIcon>
+            </ListItemIcon> : 
+            <ListItemIcon>
+              Update Information
+            </ListItemIcon>}
             <ListItemText  />
           </ListItem>
       </List>
       <List onClick={handleProduct} >
-          <ListItem >
-            <ListItemIcon>
+      <ListItem  style={{cursor:'pointer'}}>
+            {active === 'add' ? 
+            <ListItemIcon style={activeStyle}>
              Add Pets
-            </ListItemIcon>
+            </ListItemIcon> : 
+            <ListItemIcon>
+              Add Pets
+            </ListItemIcon>}
             <ListItemText  />
           </ListItem>
       </List>
           <List onClick={handleListProduct}>
-          <ListItem  >
+          <ListItem style={{cursor:'pointer'}} >
+            {active === 'list' ? 
+            <ListItemIcon style={activeStyle}>
+            List Pets
+            </ListItemIcon> : 
             <ListItemIcon>
-             List Pets
-            </ListItemIcon>
+              List Pets
+            </ListItemIcon>}
             <ListItemText  />
           </ListItem>
       </List>
           <List onClick={handleListCategories}>
-          <ListItem  >
+          <ListItem style={{cursor:'pointer'}}>
+            {active === 'cat' ? 
+            <ListItemIcon style={activeStyle}>
+            List Categories
+            </ListItemIcon> : 
             <ListItemIcon>
-             List Categories
-            </ListItemIcon>
+              List Categories
+            </ListItemIcon>}
             <ListItemText  />
           </ListItem>
       </List>
@@ -734,7 +759,7 @@ console.log(collection);
       <Divider />
 
     
-      <List onClick={handleNewsList}>
+      {/* <List onClick={handleNewsList}>
           <ListItem>
             <ListItemIcon>
               List News
@@ -742,7 +767,7 @@ console.log(collection);
             <ListItemText  />
           </ListItem>
       
-      </List>
+      </List> */}
 
     </div>
   );
@@ -777,13 +802,13 @@ console.log(collection);
           <div style={{display:'flex',width:'100%',justifyContent:'flex-end',color:'white'}}>
             <Button  style={{color:'white'}}  onClick={()=>{
               
-              window.location.href="/"
+              history.push("/")
             }}>
               Home
             </Button>
             <Button style={{color:'white'}} onClick={()=>{
               localStorage.clear();
-              window.location.href="/"
+              history.push("/")
             }}>
               Logout
             </Button>
@@ -1082,7 +1107,7 @@ console.log(collection);
           />
         </div>
         {phoneError == false ? <div style={{color:'red',marginTop:10}}>Incorrect Mobile Number.</div>:<div></div>}
-        <div style={{ display: "flex", marginTop: 30 }}>
+        {/* <div style={{ display: "flex", marginTop: 30 }}>
         <TextField
             fullWidth
             name="Delivery"
@@ -1091,7 +1116,7 @@ console.log(collection);
             value={delivery}
             onChange={handleDelivery}
           />
-        </div>
+        </div> */}
         <div style={{ display: "flex", marginTop: 30 }}>
         <Button type="submit" style={{backgroundColor:'black',color:'white',width:'100px'}} >Save</Button>
         </div>

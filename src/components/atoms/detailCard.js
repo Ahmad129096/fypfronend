@@ -15,7 +15,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useSnackbar } from 'notistack';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
-
+import {useHistory, NavLink} from 'react-router-dom'
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -29,20 +29,24 @@ const ExpandMore = styled((props) => {
 
 
 
-let moveToProduct = (id) => {
-  console.log('clicked');
-  window.location.href=`/products/${id}`;
-}
+
 
 export default function RecipeReviewCard(props) {
+
   const { enqueueSnackbar } = useSnackbar();
   let token = localStorage.getItem('token');
   let userId = token ? jwtDecode(token) : ''
   const [expanded, setExpanded] = React.useState(false);
+  const history = useHistory()
   let [rate, setRate] = React.useState();
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  let moveToProduct = (id) => {
+    console.log('clicked');
+   history.push(`/products/${id}`);
+  }
 
   let wishList = () => {
     if(token)
@@ -60,7 +64,7 @@ export default function RecipeReviewCard(props) {
   }
   else
   {
-    window.location.href="/login"
+    history.push("/login")
   }
   }
 

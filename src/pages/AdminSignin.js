@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
-
+import { useHistory, NavLink } from 'react-router-dom'
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -30,7 +30,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function AdminSignIn() {
-
+    const history = useHistory();
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -43,7 +43,8 @@ export default function AdminSignIn() {
         axios.post('http://localhost:5000/api/admin/login', obj)
         .then(function (response) {
           localStorage.setItem('admintoken',`${response.data.data.token}`);
-          window.location.href = '/admin'
+          // window.location.href = '/admin'
+          history.push('/admin');
         })
         .catch(function (error) {
           console.log(error);
@@ -107,11 +108,6 @@ export default function AdminSignIn() {
             <Grid container>
               <Grid item xs>
         
-              </Grid>
-              <Grid item>
-                <Link href="adminregister" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
               </Grid>
             </Grid>
           </Box>

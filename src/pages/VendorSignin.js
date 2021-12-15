@@ -13,14 +13,14 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
-
+import { useHistory, NavLink} from 'react-router-dom'
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
+      <NavLink color="inherit" to="https://mui.com/">
         Your Website
-      </Link>{' '}
+      </NavLink>{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -30,6 +30,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function VendorSignIn() {
+  const history = useHistory()
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -43,7 +44,7 @@ export default function VendorSignIn() {
         axios.post('http://localhost:5000/api/users/login', obj)
         .then(function (response) {
           localStorage.setItem('vendorToken',`${response.data.data.token}`);
-          window.location.href = '/vendor'
+          history.push("/vendor")
         })
         .catch(function (error) {
           console.log(error);
@@ -129,9 +130,9 @@ export default function VendorSignIn() {
          
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <NavLink to="#" variant="body2">
                   {"Don't have an account? Sign Up"}
-                </Link>
+                </NavLink>
               </Grid>
             </Grid>
           </Box>

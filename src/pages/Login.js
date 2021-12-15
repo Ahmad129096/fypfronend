@@ -16,14 +16,15 @@ import axios from 'axios';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Divider } from '@mui/material';
 import puppy from '../assets/puppy.jpg'
+import {useHistory,NavLink} from 'react-router-dom'
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
+      <NavLink color="inherit" to="https://mui.com/">
         PetChase
-      </Link>{' '}
+      </NavLink>{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -34,6 +35,7 @@ const theme = createTheme();
 
 export default function Login() {
   const { enqueueSnackbar } = useSnackbar();
+  const history = useHistory()
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -46,7 +48,7 @@ export default function Login() {
     axios.post('http://localhost:5000/api/users/login', obj)
     .then(function (response) {
       localStorage.setItem('token',`${response.data.data.token}`);
-      window.location.href = '/'
+      history.push("/")
     })
     .catch(function (error) {
       enqueueSnackbar('Incorrect Email/Password!', {
@@ -137,9 +139,9 @@ export default function Login() {
  
                 </Grid>
                 <Grid item>
-                  <Link href="register" variant="body2">
+                  <NavLink to="register" variant="body2">
                     {"Don't have an account? Sign Up"}
-                  </Link>
+                  </NavLink>
                 </Grid>
               </Grid>
               <Copyright sx={{ mt: 5 }} />

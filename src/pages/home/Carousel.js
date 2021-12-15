@@ -6,11 +6,13 @@ import cat from '../../assets/cat1.jpg'
 import kit from '../../assets/1.jpg'
 import kit1 from '../../assets/catdog.jpg'
 import puppy from '../../assets/puppy.jpg'
+// /import './crousel.css'
 
 let DemoCarousel = () =>{
 
         return (
-            <Carousel fade style={{ height: 640, width: 900, margin: 'auto', alignContent:'center'}} >
+            <Carousel fade style={{margin: 'auto',height: 640,
+            width: 900}} >
             <Carousel.Item >
               <img
                 className="d-block "

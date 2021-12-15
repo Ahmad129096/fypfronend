@@ -16,7 +16,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-
+import {useHistory, NavLink} from 'react-router-dom'
 const EditProduct = (props) => {
   const [category, setCategory] = React.useState("");
   const [subCategory, setSubCategory] = React.useState("");
@@ -35,6 +35,7 @@ const EditProduct = (props) => {
   const [cate, setCate] = React.useState("");
   const [btnBool, setBtnBool] = React.useState(false);
   const [subCategories, setSubCategories] = React.useState([])
+  const history =useHistory()
 
   let token = localStorage.getItem("token");
 
@@ -164,13 +165,14 @@ const EditProduct = (props) => {
           "Content-Type": "application/json",
         },
       })
+      
       .then(function (response) {
         enqueueSnackbar("Pet updated successfully!", {
           variant: "success",
           autoHideDuration: 2000,
         });
         setTimeout(function () {
-          window.location.href = "/vendor";
+          history.push("/vendor")
         }, 2000);
       })
       .catch(function (error) {

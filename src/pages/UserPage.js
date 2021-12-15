@@ -23,7 +23,7 @@ import FileUpload from "../components/organism/fileUpload";
 import jwtDecode from "jwt-decode";
 import { browserHistory } from "react-router";
 import { useSnackbar } from "notistack";
-import { useHistory } from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 import axios from "axios";
 
 const drawerWidth = 240;
@@ -68,7 +68,7 @@ function UserPage(props) {
           autoHideDuration: 2000,
         });
         setTimeout(function () {
-          window.location.href = "/user";
+          history.push("/user")
         }, 2000);
       })
       .catch(function (error) {
@@ -142,7 +142,7 @@ function UserPage(props) {
           autoHideDuration: 2000,
         });
         setTimeout(function () {
-          window.location.href = "/user";
+          history.push("/user")
         }, 2000);
       });
   };
@@ -201,7 +201,7 @@ function UserPage(props) {
                   <Button
                     style={{ color: "white" }}
                     onClick={() => {
-                      window.location.href = "/";
+                      history.push("/")
                     }}
                   >
                     Home
@@ -210,7 +210,7 @@ function UserPage(props) {
                     style={{ color: "white" }}
                     onClick={() => {
                       localStorage.clear();
-                      window.location.href = "/login";
+                      history.push("/login")
                     }}
                   >
                     Logout

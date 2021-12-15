@@ -22,6 +22,8 @@ import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import { isTemplateHead } from 'typescript';
 import jwtDecode from 'jwt-decode';
+import {useHistory, NavLink} from 'react-router-dom'
+import logo from '../../assets/logo1.png'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -73,6 +75,7 @@ export default function NavBar() {
   const [product,setProduct] = React.useState([]);
   const [searchBool,setSearchBool] = React.useState(false);
   const [category,setCategory] = React.useState([]);
+  const history = useHistory()
   let userId = jwtDecode(token);
 
   let productList = [];
@@ -184,16 +187,11 @@ export default function NavBar() {
     <Box sx={{ flexGrow: 1}}>
       <AppBar style={{width:'100%', backgroundColor: 'black'}} position="static" onClick={()=>setSearchBool(false)}>
         <Toolbar>
-          <a href="/" style={{textDecoration:'none',color:'white'}}>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-            PetChase
-          </Typography>
-          </a>
+          <NavLink to="/">
+          
+          <img style={{heigth: 100, width: 100}} src={logo} />
+          </NavLink>
+         
           <Search style={{display:'block'}} >
                       <StyledInputBase
                           style={{ width:500 }}
@@ -206,8 +204,8 @@ export default function NavBar() {
 
           </Search>
 
-          <Button style={{color:'white'}} onClick={()=>{
-                window.location.href = `/search/${search}`;
+          <Button style={{color:'white',fontFamily:'serif',fontSize:'18px'}} onClick={()=>{
+               history.push(`/search/${search}`) ;
               }} >
             Search 
           </Button>
@@ -219,7 +217,7 @@ export default function NavBar() {
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge  color="error">
                 <MailIcon onClick={()=>{
-                      userId._id != '61b7a2b689ea254b0c1a1486' ? window.location.href="/message" :
+                      userId._id != '61b7a2b689ea254b0c1a1486' ? history.push("/message") :
                       enqueueSnackbar('Please login first to view this page!', {
                         variant: 'error',
                         autoHideDuration: 5000
@@ -231,7 +229,7 @@ export default function NavBar() {
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge  color="error">
                 <AccountCircle onClick={()=>{
-              userId._id != '61b7a2b689ea254b0c1a1486' ? window.location.href="/user" : window.location.href="/login"
+              userId._id != '61b7a2b689ea254b0c1a1486' ? history.push("/user") : history.push("/login")
             }} />
               </Badge>
             </IconButton>
@@ -267,10 +265,15 @@ export default function NavBar() {
               })?.map((val,key)=>{
                 return(
                   <div style={{marginLeft:160,backgroundColor:'##f0f0f0'}} key={key}>
-                   <div><a href={`/search/${val.name}`} >{val.name }</a>
+                   <div><NavLink to={`/search/${val.name}`}>
+                   <a >{val.name }</a>
+                     </NavLink>
                    </div> 
                    <div>
-                    <a href={`/search/${val.description}`} >{val.description }</a>
+                     <NavLink to={`/search/${val.description}`}>
+                     <a  >{val.description }</a>
+                     </NavLink>
+                    
                     </div> 
                     </div>
                 )

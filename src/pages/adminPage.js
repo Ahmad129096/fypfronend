@@ -36,7 +36,10 @@ import EditProduct from "../components/organism/EditProduct";
 import FilesDropzone from "../components/organism/filesDropZone";
 import FileUpload from "../components/organism/fileUpload";
 import jwtDecode from 'jwt-decode'
-
+import { useHistory } from 'react-router-dom'
+import { IoIosAddCircle,IoIosListBox } from "react-icons/io";
+import {BiCategory} from 'react-icons/bi'
+import {ImUsers} from 'react-icons/im'
 const drawerWidth = 240;
 
 function AdminPage(props) {
@@ -47,6 +50,7 @@ function AdminPage(props) {
   const [products, setProducts] = React.useState([]);
   const [users,setUsers] = React.useState([]);
   const [subCategories, setSubCategories] = React.useState([]);
+  const [active, setActive] = React.useState('add')
 
   let admintoken = localStorage.getItem('admintoken');
   const [category, setCategory] = React.useState('');
@@ -73,12 +77,15 @@ function AdminPage(props) {
   const [newsCover,setNewsCover] = React.useState();
   const { enqueueSnackbar } = useSnackbar();
   const [listOrders,setListOrders] = React.useState();
+  const history = useHistory();
+  
 
   let [adName , setAdName] = React.useState();
   let adminId = admintoken ? jwtDecode(admintoken) : ''
 
 
   var getAdmin = () =>{
+     
       axios.get(`http://localhost:5000/api/admin/${adminId._id}`, {headers:{'Authorization':admintoken}})
       .then(function (response) {
           console.log('hel',response.data.data)   
@@ -95,7 +102,7 @@ function AdminPage(props) {
       if(!admintoken)
       {
        (()=>{
-         window.location.href="/adminLogin"
+         history.push("/adminlogin")
        })();
       }
      
@@ -130,6 +137,7 @@ function AdminPage(props) {
 
 
   let handleProduct = () => {
+    setActive('add')
       setProductBoolean(true);
       setListProductBoolean(false);
       setListCategoriesBoolean(false);
@@ -140,6 +148,7 @@ function AdminPage(props) {
   }
 
   let handleListProduct = () => {
+    setActive('pets')
     setProductBoolean(false);
     setListProductBoolean(true);
     setListCategoriesBoolean(false);
@@ -151,6 +160,7 @@ function AdminPage(props) {
 
 
 let handleListCategories = () => {
+  setActive('cat')
     setProductBoolean(false);
     setListProductBoolean(false);
     setListCategoriesBoolean(true);
@@ -162,6 +172,7 @@ let handleListCategories = () => {
 
 
 let handleListUser = () => {
+  setActive('users')
     setProductBoolean(false);
     setListProductBoolean(false);
     setListCategoriesBoolean(false);
@@ -254,7 +265,7 @@ let handleOrders = () => {
         autoHideDuration: 2000
       });
       setTimeout(function() {
-        window.location.href = '/admin';
+        history.push("/admin")
       }, 2000);
 
     })
@@ -277,7 +288,7 @@ let handleOrders = () => {
         autoHideDuration: 2000
       });
       setTimeout(function() {
-        window.location.href = '/admin';
+        history.push("/admin")
       }, 2000);
 
     })
@@ -301,7 +312,7 @@ let handleOrders = () => {
         autoHideDuration: 2000
       });
       setTimeout(function() {
-        window.location.href = '/admin';
+        history.push("/admin")
       }, 2000);
 
     })
@@ -326,7 +337,7 @@ let handleOrders = () => {
       });
 
       setTimeout(function() {
-        window.location.href = '/admin';
+        history.push("/admin")
       }, 2000);
 
     })
@@ -355,7 +366,7 @@ let handleOrders = () => {
           autoHideDuration: 2000
         });
         setTimeout(function() {
-          window.location.href = '/admin';
+          history.push("/admin")
         }, 2000);
 
       })
@@ -388,7 +399,7 @@ let handleOrders = () => {
         });
    
         setTimeout(function() {
-          window.location.href = '/admin';
+          history.push("/admin")
         }, 2000);
       })
       .catch(function (error) {
@@ -398,6 +409,7 @@ let handleOrders = () => {
   }
 
   let addSubCategory =()=>{
+   
     
     if(subCategory)
     {
@@ -417,7 +429,7 @@ let handleOrders = () => {
           autoHideDuration: 2000
         });
         setTimeout(function() {
-          window.location.href = '/admin';
+          history.push("/admin")
         }, 2000);
     
       })
@@ -582,7 +594,7 @@ console.log(collection);
         autoHideDuration: 2000
       });
       setTimeout(function() {
-        window.location.href = '/admin';
+        history.push("/admin")
       }, 2000);
  
     })
@@ -592,51 +604,75 @@ console.log(collection);
 
   }
 
+  const activeStyle = {
+    color: "orange"
+  }
+
  console.log(editProduct)
   const drawer = (
-    <div>
-    <div style={{marginLeft:50,marginTop:50}}>
+    <div style={{fontFamily:'sans-serif',backgroundColor:'wheat',color:'black'}}>
+    <div style={{marginLeft:70,marginTop:50}}>
     <Avatar style={{width:100, height:100}} />
-    <Typography style={{marginLeft:30,marginTop:20}}>
+    <Typography style={{marginLeft:5,marginTop:20}}>
       {adName}
     </Typography>
     </div>
       <Toolbar />
       <Divider />
-      <List onClick={handleProduct} >
-          <ListItem >
-            <ListItemIcon>
+      <List onClick={handleProduct}>
+        
+          <ListItem style={{cursor:'pointer'}}>
+            {active === 'add' ? 
+            <ListItemIcon style={activeStyle}>
+              <IoIosAddCircle/> 
              Add Pets
-            </ListItemIcon>
+            </ListItemIcon> : 
+            <ListItemIcon>
+              <IoIosAddCircle/> 
+             Add Pets
+            </ListItemIcon>}
             <ListItemText  />
           </ListItem>
-      </List>
-          <List onClick={handleListProduct}>
-          <ListItem  >
-            <ListItemIcon>
+      </List  >
+          <List  onClick={handleListProduct}>
+          <ListItem style={{cursor:'pointer'}}  >
+            {active === 'pets' ? <ListItemIcon style={activeStyle}>
+              <IoIosListBox/>
              List Pets
-            </ListItemIcon>
+            </ListItemIcon> : <ListItemIcon>
+            <IoIosListBox/>
+             List Pets
+            </ListItemIcon>}
             <ListItemText  />
           </ListItem>
-      </List>
+      </List >
           <List onClick={handleListCategories}>
-          <ListItem  >
-            <ListItemIcon>
+          <ListItem style={{cursor:'pointer'}} >
+            {active === 'cat' ? <ListItemIcon style={activeStyle} >
+              <BiCategory/>
              List Categories
-            </ListItemIcon>
+            </ListItemIcon> : <ListItemIcon>
+              <BiCategory/>
+             List Categories
+            </ListItemIcon>}
             <ListItemText  />
           </ListItem>
       </List>
           <List onClick={handleListUser}>
-          <ListItem  >
-            <ListItemIcon>
+          <ListItem style={{cursor:'pointer'}} >
+            {active === 'users' ? <ListItemIcon style={activeStyle}>
+              <ImUsers/>
              List Users
-            </ListItemIcon>
+            </ListItemIcon> : 
+            <ListItemIcon>
+              <ImUsers/>
+             List Users
+            </ListItemIcon>}
             <ListItemText />
           </ListItem>
       </List>
       <Divider />
-      <List onClick={handleNews}>
+      {/* <List onClick={handleNews}>
           <ListItem>
             <ListItemIcon>
               Add Ads
@@ -653,7 +689,7 @@ console.log(collection);
             <ListItemText  />
           </ListItem>
       
-      </List>
+      </List> */}
   
     </div>
   );
@@ -689,7 +725,7 @@ console.log(collection);
           <div style={{display:'flex',width:'80%',justifyContent:'flex-end',color:'white'}}>
           <Button style={{color:'white'}} onClick={()=>{
               localStorage.clear();
-              window.location.href="/adminlogin"
+              history.push("/adminlogin")
             }}>
               Logout
             </Button>
@@ -787,7 +823,7 @@ console.log(collection);
           />
         </div>
         <div style={{marginTop:30}}>
-        <Button style={{color:'black',border:'1px solid black'}} variant="outlined" onClick={handleSubmit}> ADD Collection </Button>
+        <Button style={{color:'black',border:'1px solid black', backgroundColor: 'black', color: 'white'}} variant="outlined" onClick={handleSubmit}> ADD Collection </Button>
         </div>
         <div style={{ display: "flex", marginTop: 20 }}>
           <TextField
@@ -802,7 +838,7 @@ console.log(collection);
 
         </div>
         <div style={{marginTop:30}}>
-        <Button style={{color:'black',border:'1px solid black'}} variant="outlined" onClick={addCategory}> ADD Pet </Button>
+        <Button style={{color:'black',border:'1px solid black', backgroundColor: 'black', color: 'white'}} variant="outlined" onClick={addCategory}> ADD Pet </Button>
         </div>
         <div style={{ display: "flex", marginTop: 20 }}>
           <TextField
@@ -817,7 +853,7 @@ console.log(collection);
 
         </div>
         <div style={{marginTop:30}}>
-        <Button style={{color:'black',border:'1px solid black'}} variant="outlined" onClick={addSubCategory}> ADD Breed </Button>
+        <Button style={{color:'black',border:'1px solid black', backgroundColor: 'black', color: 'white'}} variant="outlined" onClick={addSubCategory}> ADD Breed </Button>
         </div>
       
         </form>

@@ -47,7 +47,6 @@ function App() {
         <Route path="/login" component={Login}/>
         <Route path="/shipping" component={Shipping}/>
         <Route path="/category" component={CategoryPage}/>
-        <Route path="/adminregister" component={AdminSignup}/>
         <Route path="/" exact={true} component={HomeScreen}/>
 
   
