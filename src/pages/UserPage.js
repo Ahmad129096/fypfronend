@@ -100,6 +100,41 @@ function UserPage(props) {
       });
   };
 
+  let deactivateAccount = () =>{
+    let obj = {
+      isDeactived: true
+    };
+    axios
+    .patch(`http://localhost:5000/api/users/${decode._id}`, obj, {
+      headers: { Authorization: token },
+    })
+    .then(function (response) {
+      console.log("information updated");
+      history.push("/user");
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  let activateAccount = () =>{
+    let obj = {
+      isDeactived: false
+    };
+    axios
+    .patch(`http://localhost:5000/api/users/${decode._id}`, obj, {
+      headers: { Authorization: token },
+    })
+    .then(function (response) {
+      console.log("information updated");
+      history.push("/user");
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+
   let savePicture = () => {
     console.log("saving image");
     let obj = {
@@ -324,6 +359,13 @@ function UserPage(props) {
                 }}
               >
                 {int.save}
+              </Button>
+
+              <Button onClick={deactivateAccount}>
+                Deactivated
+              </Button>
+              <Button onClick={activateAccount}>
+                Activate
               </Button>
             </div>
           </div>

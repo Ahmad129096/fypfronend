@@ -18,7 +18,8 @@ const HomeListItems = () => {
           },
         })
         .then(function (response) {
-          setProd(response.data.data);
+
+          setProd(response.data.data.filter(t=>t?.user?.isDeactived != true));
         })
         .catch(function (error) {
           console.log(error);

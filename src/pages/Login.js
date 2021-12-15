@@ -140,6 +140,9 @@ export default function Login() {
                   <Link href="register" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
+                  <Link href="forget_password" variant="body2">
+                    {"Forget password?"}
+                  </Link>
                 </Grid>
               </Grid>
               <Copyright sx={{ mt: 5 }} />

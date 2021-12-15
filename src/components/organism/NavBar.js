@@ -239,9 +239,22 @@ export default function NavBar() {
             }} />
               </Badge>
             </IconButton>
+            
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge  color="error">
-              <select onChange={(e)=>localStorage.setItem('lang',e.target.value)}>
+              
+       {       userId._id == '61b7a2b689ea254b0c1a1486' ? <Button onClick={()=>{window.location.href="/login"}}>Login</Button>: <Button onClick={()=>{
+                localStorage.clear();
+                window.location.href="/login"
+              }}>Logout</Button>}
+           
+              </Badge>
+            </IconButton>
+            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+              <Badge  color="error">
+              <select onChange={(e)=>{localStorage.setItem('lang',e.target.value)
+              window.location.href="/"
+            }}>
               <option  value="en">EN</option>
               <option value="de">Urdu</option>
               </select>
