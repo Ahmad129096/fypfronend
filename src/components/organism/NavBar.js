@@ -20,6 +20,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
+import en from "../../locale/eng.json";
+import de from "../../locale/de.json";
 import { isTemplateHead } from 'typescript';
 import jwtDecode from 'jwt-decode';
 
@@ -64,6 +66,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function NavBar() {
+  let t = localStorage.getItem('lang') === 'en' ? en : de;
+  const [int, setInt] = React.useState(t);
 
   const [search,setSearch] = React.useState();
   const { enqueueSnackbar } = useSnackbar();
@@ -197,7 +201,7 @@ export default function NavBar() {
           <Search style={{display:'block'}} >
                       <StyledInputBase
                           style={{ width:500 }}
-              placeholder="Search Here .."
+              placeholder={`${int.search_here}`}
               inputProps={{ 'aria-label': 'search' }}
               onChange={searchTerm}
               value={search}
@@ -209,7 +213,7 @@ export default function NavBar() {
           <Button style={{color:'white'}} onClick={()=>{
                 window.location.href = `/search/${search}`;
               }} >
-            Search 
+            {int.search} 
           </Button>
         
           <Box sx={{ flexGrow: 1 }} />
@@ -235,7 +239,14 @@ export default function NavBar() {
             }} />
               </Badge>
             </IconButton>
-    
+            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+              <Badge  color="error">
+              <select onChange={(e)=>localStorage.setItem('lang',e.target.value)}>
+              <option  value="en">EN</option>
+              <option value="de">Urdu</option>
+              </select>
+              </Badge>
+            </IconButton>
            
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

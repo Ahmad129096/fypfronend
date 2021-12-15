@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -25,6 +25,9 @@ import { browserHistory } from "react-router";
 import { useSnackbar } from "notistack";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import en from '../locale/eng.json';
+import de from "../locale/de.json"
+
 
 const drawerWidth = 240;
 
@@ -40,6 +43,9 @@ function UserPage(props) {
   const [newsCover, setNewsCover] = React.useState("");
   const [btnBool, setBtnBool] = React.useState(false)
 
+  let t = localStorage.getItem('lang') === 'en' ? en : de;
+  const [int, setInt] = useState(t);
+  console.log(int)
   let token = localStorage.getItem("token");
   let decode = jwtDecode(token);
 
@@ -188,7 +194,7 @@ function UserPage(props) {
                   noWrap
                   component="div"
                 >
-                  Dashboard
+                  {int.dashboard}
                 </Typography>
                 <div
                   style={{
@@ -204,7 +210,7 @@ function UserPage(props) {
                       window.location.href = "/";
                     }}
                   >
-                    Home
+                    {int.home}
                   </Button>
                   <Button
                     style={{ color: "white" }}
@@ -213,7 +219,7 @@ function UserPage(props) {
                       window.location.href = "/login";
                     }}
                   >
-                    Logout
+                    {int.logout}
                   </Button>
                 </div>
               </Toolbar>
@@ -284,7 +290,7 @@ function UserPage(props) {
                 fullWidth
                 name="Email"
                 id="Email"
-                label="Email"
+                label={`${int.email}`}
                 value={email}
               />
             </div>
@@ -293,7 +299,7 @@ function UserPage(props) {
                 fullWidth
                 name="Name"
                 id="Name"
-                label="Name"
+                label={`${int.name}`}
                 value={name}
                 onChange={handleName}
               />
@@ -303,7 +309,7 @@ function UserPage(props) {
                 fullWidth
                 name="phone"
                 id="phone"
-                label="phone"
+                label={`${int.phone}`}
                 value={phone}
                 onChange={handlePhone}
               />
@@ -317,7 +323,7 @@ function UserPage(props) {
                   width: "100px",
                 }}
               >
-                Save
+                {int.save}
               </Button>
             </div>
           </div>

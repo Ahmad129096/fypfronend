@@ -1,11 +1,15 @@
 import React from 'react';
 import { Button, Link } from "@mui/material";
 import DropDown from '../atoms/DropDown';
+import en from "../../locale/eng.json";
+import de from "../../locale/de.json";
 
 const HomePageList = () => {
+    let t = localStorage.getItem('lang') === 'en' ? en : de;
+    const [int, setInt] = React.useState(t);
     let token = localStorage.getItem("token");
     let list = [
-        {title:'Categories'},
+        {title:`${int.categories}`},
         {title:'Ready to ship'},
         {title:'Wishlist'},
         {title:'Services & Help'},
@@ -22,17 +26,17 @@ const HomePageList = () => {
         <li>
         <Button style={{color:'black'}} onClick={()=>{
                 window.location.href = "/wishlist"
-            }}>Wishlist</Button>
+            }}>{int.wishlist}</Button>
          
         </li>
         <li>
             <Button style={{color:'black'}} onClick={()=>{
                 window.location.href = "/services"
-            }}>Services & Help</Button>
+            }}>{int.service}</Button>
         </li>
         <li>
             <a style={{textDecoration:'none'}} href="/blog">
-                <Button style={{color:'black'}}>Blogs</Button>
+                <Button style={{color:'black'}}>{int.blog}</Button>
             </a>
         </li>
      
@@ -40,7 +44,7 @@ const HomePageList = () => {
             <Button style={{color:'black'}} onClick={()=>{
                 
                 window.location.href = token ? "/vendor" : "/login"
-            }}>Post your pet</Button>
+            }}>{int.post}</Button>
         </li>
   
     </ul>

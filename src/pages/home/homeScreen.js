@@ -11,9 +11,13 @@ import HomeListItems from "../../components/organism/HomeListItems";
 import ProductPage from "../ProductPage";
 import axios from "axios";
 import DemoCarousel from "./Carousel";
+import en from "../../locale/eng.json";
+import de from "../../locale/de.json";
 
 
 const HomeScreen = () => {
+  let t = localStorage.getItem('lang') === 'en' ? en : de;
+  const [int, setInt] = React.useState(t);
   const [homeBool, setHomeBool] = useState(true);
   const [productBool, setProductBool] = useState(false);
 
@@ -98,8 +102,9 @@ const HomeScreen = () => {
 
 <Grid item md={10}>
 <div style={{textAlign: 'center',fontWeight: 'bold',margin:'auto' }}>
-    <h2> PETS ARE NOT OUR WHOLE LIFE </h2> 
-    <h2> BUT THEY MAKE OUR LIVES WHOLE</h2>
+   <h2>
+     {int.dialog}
+   </h2>
     <h5 style={{marginLeft:'65%',marginRight:'25%'}}>~Roger Caras</h5>
   </div>
  <CustomizedProduct/>
