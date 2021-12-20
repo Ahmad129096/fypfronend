@@ -2,10 +2,12 @@
 import React, { useState } from 'react';
 import Path from 'path';
 import uploadFileToBlob, { isStorageConfigured } from './fileConfig';
+import { useSnackbar } from 'notistack';
 
 const storageConfigured = isStorageConfigured();
 
 const FileUpload = (props) => {
+  const { enqueueSnackbar } = useSnackbar();
   // all blobs in container
   let {setUpBtn} = props;
 
@@ -38,9 +40,17 @@ const FileUpload = (props) => {
     setUploading(true);
     setUpBtn(true);
     
+    if(fileSelected == null){
+      enqueueSnackbar('Please Upload a file first', {
+        variant: 'error',
+        autoHideDuration: 2000
+      });
+      setUploading(false);
+    }
     
     // *** UPLOAD TO AZURE STORAGE ***
-    for(let i=0 ; i<props?.up?.length; ++i)
+    else{
+      for(let i=0 ; i<props?.up?.length; ++i)
     {
       var blobsInContainer = await uploadFileToBlob(fileSelected[i]);
     }
@@ -49,7 +59,6 @@ const FileUpload = (props) => {
     setBlobList(blobsInContainer);
 
     // reset state/form
-    setFileSelected(null);
     setUploading(false);
     setUpBtn(false);
     setInputKey(Math.random().toString(36));
@@ -57,6 +66,7 @@ const FileUpload = (props) => {
     {
       props.savePicture();
     }
+  }
   };
 
   // display form
@@ -66,6 +76,7 @@ const FileUpload = (props) => {
       <button type="submit" onClick={onFileUpload}>
         Upload!
       </button>
+      
     </div>
   );
 

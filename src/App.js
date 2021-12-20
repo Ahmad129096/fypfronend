@@ -14,7 +14,7 @@ import UserPage from './pages/UserPage';
 import Message from './components/organism/Message';
 import VMessage from './components/organism/vMessage';
 import Zapp from './components/organism/Stripe'
-import Services from './pages/services'
+import Services from './pages/services/services';
 import Cart from './pages/Cart';
 import WishList from './pages/wishList';
 import Search from './pages/Search';

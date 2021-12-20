@@ -17,7 +17,11 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import {useHistory, NavLink} from 'react-router-dom'
+import en from '../../locale/eng.json';
+import de from "../../locale/de.json";
 const EditProduct = (props) => {
+  let t = localStorage.getItem('lang') === 'en' ? en : de;
+  const [int, setInt] = React.useState(t);
   const [category, setCategory] = React.useState("");
   const [subCategory, setSubCategory] = React.useState("");
   const [name, setName] = React.useState("");
@@ -190,7 +194,7 @@ const EditProduct = (props) => {
     >
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          <Typography paragraph>Edit Pet</Typography>
+          <Typography paragraph>{int.edit_pet}</Typography>
           <br />
           <div style={{ display: "flex" }}>
             <FormControl fullWidth>
@@ -199,7 +203,7 @@ const EditProduct = (props) => {
                 labelId="Collection"
                 id="Collection"
                 value={cate}
-                label="Collection"
+                label={`${int.collection}`}
                 onChange={handleChange}
                 key={Math.random() * (1000 - 9 + 1)}
               >
@@ -221,7 +225,7 @@ const EditProduct = (props) => {
                 labelId="Category"
                 id="Category"
                 value={category.value}
-                label="Category"
+                label={`${int.category}`}
                 onChange={handleChangeCategory}
               >
                 {props.categories.map(function (item, i) {
@@ -260,7 +264,7 @@ const EditProduct = (props) => {
                 fullWidth
                 name="Name"
                 id="Name"
-                label="Pet Name"
+                label={`${int.pet_name}`}
                 value={name}
                 onChange={handleChangeName}
                 style={{ marginRight: "10px" }}
@@ -273,7 +277,7 @@ const EditProduct = (props) => {
                   id="subCategory"
                   value={subCategory.value}
                   required={true}
-                  label="subCategory"
+                  label={`${int.subcategory}`}
                   onChange={handleChangeSubCategory}
                 >
                   {subCategories.map(function (item, i) {
@@ -291,7 +295,7 @@ const EditProduct = (props) => {
                 fullWidth
                 name="Description"
                 id="Description"
-                label="Pet Description"
+                label={`${int.pet_description}`}
                 value={description}
                 onChange={handleChangeDescription}
               />
@@ -301,7 +305,7 @@ const EditProduct = (props) => {
                 fullWidth
                 name="Price"
                 id="Price"
-                label="Pet Price ($)"
+                label={`${int.pet_price}`}
                 style={{ marginRight: "10px" }}
                 value={price}
                 onChange={handleChangePrice}
@@ -311,7 +315,7 @@ const EditProduct = (props) => {
                 fullWidth
                 name="Collection"
                 id="Collection"
-                label="Pet Stock"
+                label={`${int.pet_stock}`}
                 value={stock}
                 onChange={handleChangeStock}
               />
@@ -329,7 +333,7 @@ const EditProduct = (props) => {
             </div>
 
             <div style={{ marginTop: 30 }}>
-              <Button onClick={handleSubmit}> Edit Pet </Button>
+              <Button onClick={handleSubmit}>  {int.edit_pet} </Button>
             </div>
           </form>
         </DialogContentText>

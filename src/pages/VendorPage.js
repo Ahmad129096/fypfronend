@@ -36,6 +36,8 @@ import FilesDropzone from "../components/organism/filesDropZone";
 import FileUpload from "../components/organism/fileUpload";
 import jwtDecode from "jwt-decode";
 import { useHistory, NavLink} from 'react-router-dom'
+import en from "../locale/eng.json";
+import de from "../locale/de.json";
 const drawerWidth = 240;
 
 function VendorPage(props) {
@@ -87,6 +89,8 @@ function VendorPage(props) {
   const [active, setActive] = React.useState('info')
   const history = useHistory()
   let [btnBool, setBtnBool] = React.useState();
+  let t = localStorage.getItem('lang') === 'en' ? en : de;
+  const [int, setInt] = React.useState(t);
 
 
   let mobregex = /^((\+92)|(0092))-{0,1}\d{3}-{0,1}\d{7}$|^\d{11}$|^\d{4}-\d{7}$/;
@@ -711,10 +715,10 @@ console.log(collection);
       <ListItem style={{cursor:'pointer'}} >
             {active === 'info' ? 
             <ListItemIcon style={activeStyle}>
-             Update Information
+             {int.update_info}
             </ListItemIcon> : 
             <ListItemIcon>
-              Update Information
+              {int.update_info}
             </ListItemIcon>}
             <ListItemText  />
           </ListItem>
@@ -723,10 +727,10 @@ console.log(collection);
       <ListItem  style={{cursor:'pointer'}}>
             {active === 'add' ? 
             <ListItemIcon style={activeStyle}>
-             Add Pets
+             {int.add_pet}
             </ListItemIcon> : 
             <ListItemIcon>
-              Add Pets
+              {int.add_pet}
             </ListItemIcon>}
             <ListItemText  />
           </ListItem>
@@ -735,10 +739,10 @@ console.log(collection);
           <ListItem style={{cursor:'pointer'}} >
             {active === 'list' ? 
             <ListItemIcon style={activeStyle}>
-            List Pets
+           {int.list_pet}
             </ListItemIcon> : 
             <ListItemIcon>
-              List Pets
+             {int.list_pet}
             </ListItemIcon>}
             <ListItemText  />
           </ListItem>
@@ -747,10 +751,10 @@ console.log(collection);
           <ListItem style={{cursor:'pointer'}}>
             {active === 'cat' ? 
             <ListItemIcon style={activeStyle}>
-            List Categories
+            {int.list_categories}
             </ListItemIcon> : 
             <ListItemIcon>
-              List Categories
+              {int.list_categories}
             </ListItemIcon>}
             <ListItemText  />
           </ListItem>
@@ -797,20 +801,20 @@ console.log(collection);
             <MenuIcon />
           </IconButton>
           <Typography style={{width:500}} variant="h6" noWrap component="div">
-            Vendor Dashboard
+          {int.vendor_dashboard}
           </Typography>
           <div style={{display:'flex',width:'100%',justifyContent:'flex-end',color:'white'}}>
             <Button  style={{color:'white'}}  onClick={()=>{
               
               history.push("/")
             }}>
-              Home
+             {int.home}
             </Button>
             <Button style={{color:'white'}} onClick={()=>{
               localStorage.clear();
               history.push("/")
             }}>
-              Logout
+              {int.logout}
             </Button>
           </div>
         </Toolbar>
@@ -897,12 +901,12 @@ console.log(collection);
         <form onSubmit={handleSubmit}>
           
         <FormControl fullWidth>
-            <InputLabel id="Collection">Collection</InputLabel>
+            <InputLabel id="Collection">{int.collection}</InputLabel>
             <Select
               labelId="Collection"
               id="Collection"
               value={cate}
-              label="Collection"
+              label={`${int.collection}`}
               onChange={handleChange}
               required={true}
             >
@@ -920,13 +924,13 @@ console.log(collection);
         <div style={{ display: "flex", marginTop: 20 }}>
       
         <FormControl fullWidth >
-            <InputLabel id="Category">Category</InputLabel>
+            <InputLabel id="Category">{int.category}</InputLabel>
             <Select
               labelId="Category"
               id="Category"
               value={category}
               required={true}
-              label="Category"
+              label={`${int.category}`}
               onChange={handleChangeCategory}
             >
               {categories.map(function (item, i) {
@@ -945,7 +949,7 @@ console.log(collection);
             fullWidth
             name="Name"
             id="Name"
-            label="Pet Name"
+            label={`${int.pet_name}`}
             required={true}
             value={name}
             onChange={handleChangeName}
@@ -953,13 +957,13 @@ console.log(collection);
           />
 
 <FormControl fullWidth >
-            <InputLabel id="subCategory">Subcategories</InputLabel>
+            <InputLabel id="subCategory">{int.subCategory}</InputLabel>
             <Select
               labelId="subCategory"
               id="subCategory"
               value={subCategory}
               required={true}
-              label="subCategory"
+              label={`${int.subCategory}`}
               onChange={handleChangeSubCategory}
             >
               {subCategories.map(function (item, i) {
@@ -978,7 +982,7 @@ console.log(collection);
             fullWidth
             name="Description"
             id="Description"
-            label="Pet Description"
+            label={`${int.pet_description}`}
             required={true}
             value={description}
             onChange={handleChangeDescription}
@@ -990,7 +994,7 @@ console.log(collection);
             fullWidth
             name="Price"
             id="Price"
-            label="Pet Price (PKR)"
+            label={`${int.collection} (PKR)`}
             style={{ marginRight: "10px" }}
             type="number"
             value={price}
@@ -1003,7 +1007,7 @@ console.log(collection);
             name="Collection"
             id="Collection"
             type="number"
-            label="Pet Stock"
+            label={`${int.pet_stock}`}
             value={stock}
             required={true}
             onChange={handleChangeStock}
@@ -1030,7 +1034,7 @@ console.log(collection);
       
 
         <div style={{marginTop:30}}>
-        <Button disabled={btnBool} style={{color:'black',border:'1px solid black'}} variant="outlined" type="submit"> ADD PET </Button>
+        <Button disabled={btnBool} style={{color:'black',border:'1px solid black'}} variant="outlined" type="submit"> {int.add_pet} </Button>
         </div>
 
         </form>
@@ -1079,7 +1083,7 @@ console.log(collection);
             fullWidth
             name="Email"
             id="Email"
-            label="Email"
+            label={`${int.email}`}
             value={email}
           />
         </div>
@@ -1088,7 +1092,7 @@ console.log(collection);
             fullWidth
             name="Name"
             id="Name"
-            label="Name"
+            label={`${int.name}`}
             required={true}
             value={vName}
             onChange={handleVName}
@@ -1100,7 +1104,7 @@ console.log(collection);
             name="Mobile"  
             required={true }
             id="phone"
-            label="phone"
+            label={`${int.phone}`}
             type="number"
             value={phone}
             onChange={handlePhone}
@@ -1141,9 +1145,9 @@ console.log(collection);
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Pet Name</TableCell>
-            <TableCell align="right">Edit</TableCell>
-            <TableCell align="right">Delete</TableCell>
+            <TableCell>{int.pet_name}</TableCell>
+            <TableCell align="right">{int.edit}</TableCell>
+            <TableCell align="right">{int.delete}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -1180,7 +1184,7 @@ console.log(collection);
  <Table sx={{ minWidth: 650 }} aria-label="simple table">
    <TableHead>
      <TableRow>
-       <TableCell>User Name</TableCell>
+       <TableCell>{int.user_name}</TableCell>
        <TableCell align="right">Delete</TableCell>
      </TableRow>
    </TableHead>
@@ -1221,7 +1225,7 @@ console.log(collection);
             fullWidth
             name="News"
             id="News"
-            label="News Title"
+            label={`${int.news_title}`}
             value={news}
             required={true}
             onChange={handleChangeNews}
@@ -1235,7 +1239,7 @@ console.log(collection);
             fullWidth
             name="newsDescription"
             id="newsDescription"
-            label="News Description"
+            label={`${int.news_description}`}
             value={newsDescription}
             required={true}
             onChange={handleChangeNewsDescription}
@@ -1277,7 +1281,7 @@ console.log(collection);
   <Table sx={{ minWidth: 650 }} aria-label="simple table">
     <TableHead>
       <TableRow>
-        <TableCell>News Title</TableCell>
+        <TableCell>{int.news_title}</TableCell>
         
       </TableRow>
     </TableHead>
@@ -1372,9 +1376,9 @@ console.log(collection);
   <Table sx={{ minWidth: 650 }} aria-label="simple table">
     <TableHead>
       <TableRow>
-        <TableCell>Category Name</TableCell>
-        <TableCell align="right">Edit</TableCell>
-        <TableCell align="right">Delete</TableCell>
+        <TableCell>{int.category_name}</TableCell>
+        <TableCell align="right">{int.edit}</TableCell>
+        <TableCell align="right">{int.delete}</TableCell>
       </TableRow>
     </TableHead>
     <TableBody>

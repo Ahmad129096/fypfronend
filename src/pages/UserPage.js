@@ -25,6 +25,8 @@ import { browserHistory } from "react-router";
 import { useSnackbar } from "notistack";
 import { useHistory, NavLink } from "react-router-dom";
 import axios from "axios";
+import en from '../locale/eng.json';
+import de from "../locale/de.json"
 
 const drawerWidth = 240;
 
@@ -39,6 +41,9 @@ function UserPage(props) {
   const [listOrders, setListOrders] = React.useState();
   const [newsCover, setNewsCover] = React.useState("");
   const [btnBool, setBtnBool] = React.useState(false)
+  let t = localStorage.getItem('lang') === 'en' ? en : de;
+  const [int, setInt] = React.useState(t);
+  const [toggle, setToggle] = React.useState(false)
 
   let token = localStorage.getItem("token");
   let decode = jwtDecode(token);
@@ -93,6 +98,57 @@ function UserPage(props) {
         console.log(error);
       });
   };
+
+  let deactivateAccount = () =>{
+    
+    let obj = {
+      isDeactived: true
+    };
+    axios
+    .patch(`http://localhost:5000/api/users/${decode._id}`, obj, {
+      headers: { Authorization: token },
+    })
+    .then(function (response) {
+      console.log("information updated");
+      if(window.confirm("Are you sure you want to deactivate account?"))
+      {
+        window.open("exit.html", "Thanks for Visiting!");
+        setToggle(true);
+        window.alert("Account has been deactivated")
+        history.push("/user");
+      }
+      else{
+        setToggle(false)
+        history.push("/user")
+      } 
+      
+
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  let activateAccount = () =>{
+    
+    let obj = {
+      isDeactived: false
+    };
+    axios
+    .patch(`http://localhost:5000/api/users/${decode._id}`, obj, {
+      headers: { Authorization: token },
+    })
+    .then(function (response) {
+      console.log("information updated");
+      setToggle(false)
+      window.alert("your account is active now")
+      history.push("/user");
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
 
   let savePicture = () => {
     console.log("saving image");
@@ -188,7 +244,7 @@ function UserPage(props) {
                   noWrap
                   component="div"
                 >
-                  Dashboard
+                 {int.dashboard}
                 </Typography>
                 <div
                   style={{
@@ -204,7 +260,7 @@ function UserPage(props) {
                       history.push("/")
                     }}
                   >
-                    Home
+                    {int.home}
                   </Button>
                   <Button
                     style={{ color: "white" }}
@@ -213,7 +269,7 @@ function UserPage(props) {
                       history.push("/login")
                     }}
                   >
-                    Logout
+                    {int.logout}
                   </Button>
                 </div>
               </Toolbar>
@@ -284,7 +340,7 @@ function UserPage(props) {
                 fullWidth
                 name="Email"
                 id="Email"
-                label="Email"
+                label={`${int.email}`}
                 value={email}
               />
             </div>
@@ -293,7 +349,7 @@ function UserPage(props) {
                 fullWidth
                 name="Name"
                 id="Name"
-                label="Name"
+                label={`${int.name}`}
                 value={name}
                 onChange={handleName}
               />
@@ -303,7 +359,7 @@ function UserPage(props) {
                 fullWidth
                 name="phone"
                 id="phone"
-                label="phone"
+                label={`${int.phone}`}
                 value={phone}
                 onChange={handlePhone}
               />
@@ -317,8 +373,18 @@ function UserPage(props) {
                   width: "100px",
                 }}
               >
-                Save
+               {int.save}
               </Button>
+              {toggle  === false ?
+              <Button onClick={deactivateAccount}>
+              Deactivated
+            </Button> : 
+            <Button onClick={activateAccount}>
+            Activate
+          </Button>
+            }
+             
+              
             </div>
           </div>
         </Grid>

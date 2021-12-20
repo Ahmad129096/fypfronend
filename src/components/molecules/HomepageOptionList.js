@@ -3,15 +3,20 @@ import { Button, Link } from "@mui/material";
 import DropDown from "../atoms/DropDown";
 import { useHistory, NavLink } from "react-router-dom";
 import { Navbar, Container } from "react-bootstrap";
+import en from "../../locale/eng.json";
+import de from "../../locale/de.json";
+
 const HomePageList = () => {
-  let token = localStorage.getItem("token");
-  let list = [
-    { title: "Categories" },
-    { title: "Ready to ship" },
-    { title: "Wishlist" },
-    { title: "Services & Help" },
-    { title: "Blogs" },
-  ];
+  let t = localStorage.getItem('lang') === 'en' ? en : de;
+    const [int, setInt] = React.useState(t);
+    let token = localStorage.getItem("token");
+    let list = [
+        {title:`${int.categories}`},
+        {title:'Ready to ship'},
+        {title:'Wishlist'},
+        {title:'Services & Help'},
+        {title:'Blogs'},
+    ]
   const history = useHistory();
   return (
     <ul
@@ -37,7 +42,7 @@ const HomePageList = () => {
             token ? history.push("/wishlist") : history.push("/login");
           }}
         >
-          Wishlist
+          {int.wishlist}
         </Button>
       </li>
       <li>
@@ -47,7 +52,7 @@ const HomePageList = () => {
             token ? history.push("/services") : history.push("/login");
           }}
         >
-          Services & Help
+          {int.service}
         </Button>
       </li>
 
@@ -58,7 +63,7 @@ const HomePageList = () => {
             token ? history.push("/vendor") : history.push("/login");
           }}
         >
-          Post your pet
+          {int.post}
         </Button>
       </li>
     </ul>

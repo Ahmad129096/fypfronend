@@ -8,6 +8,8 @@ import Select from "../components/atoms/Select";
 import DetailCard from '../components/atoms/detailCard'
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+import en from "../../src/locale/eng.json";
+import de from "../../src/locale/de.json";
 
 
 const Search = () => {
@@ -17,6 +19,8 @@ const Search = () => {
     const [productx,setProductx] = useState([]);
   const [minPrice,setMinPrice] = useState(0);
   const [maxPrice,setMaxPrice] = useState(0);
+  let t = localStorage.getItem('lang') === 'en' ? en : de;
+  const [int, setInt] = React.useState(t);
 
   let token = localStorage.getItem("token") || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWI3YTJiNjg5ZWEyNTRiMGMxYTE0ODYiLCJpYXQiOjE2Mzk0MjQ2OTR9.IaktufTAvVVOhlB9C3_8AbVoDyDMqQgSdRcw2RmmoRQ';
   let jwt = token ? jwtDecode(token): '';
@@ -109,7 +113,7 @@ const Search = () => {
          <Grid item md={10}>
          <Grid container>
       <Grid item md={12}>
-        <Typography variant="h5">Searches:</Typography>
+        <Typography variant="h5">{int.searches}:</Typography>
       </Grid>
       <Grid item md={12}>
           <br/>
@@ -119,7 +123,7 @@ const Search = () => {
         <br/>
         <Typography variant="h6">
           
-        {products?.length > 0 ? <div> </div> : <div> No Pet found! </div>
+        {products?.length > 0 ? <div> </div> : <div> {int.no_pet_found}</div>
       }
         </Typography>
       </Grid>

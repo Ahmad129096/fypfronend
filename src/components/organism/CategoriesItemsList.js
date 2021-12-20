@@ -9,9 +9,9 @@ const CategoriesItems = () => {
 
   const [products,setProducts] = useState([]);
   const [minPrice,setMinPrice] = useState(0);
-  const [maxPrice,setMaxPrice] = useState(0);
+  const [maxPrice,setMaxPrice] = useState(10000000);
 
-  let token = localStorage.getItem("token");
+  let token = localStorage.getItem("token") || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWI3YTJiNjg5ZWEyNTRiMGMxYTE0ODYiLCJpYXQiOjE2Mzk0MjQ2OTR9.IaktufTAvVVOhlB9C3_8AbVoDyDMqQgSdRcw2RmmoRQ'
   var url = window.location.pathname;
   var category = url.substring(url.lastIndexOf("/") + 1);
   var link = category.replace('%20',' ');
@@ -21,10 +21,28 @@ const CategoriesItems = () => {
 
   let handleMinPrice = (e) =>
   {
-    setMinPrice(e.target.value);
+    let t = e.target.value;
+    if(t == "")
+    {
+      setMinPrice(0)
+    }
+    else
+    {
+      setMinPrice(parseInt(t));
+    }
+
   }
   let handleMaxPrice = (e) => {
-    setMaxPrice(e.target.value);
+   let t = e.target.value;
+   if(t == "")
+   {
+    setMaxPrice(0)
+   }
+   else
+   {
+    setMaxPrice(parseInt(t));
+   }
+
   }
 
 
@@ -48,9 +66,9 @@ const CategoriesItems = () => {
   }
 
   let handleFilter = () =>{
-    
-    axios.get('http://localhost:5000/api/products/search/advance?minPrice&maxPrice',
-    {params:{minPrice,maxPrice}},{headers: { 'Authorization': token }})
+    axios.get(`http://localhost:5000/api/products/search/advance?minPrice=${minPrice}&maxPrice=${maxPrice}`,
+    {headers: { Authorization: token }},
+  )
     .then(function (response) {
       console.log(response);
       setProducts(response.data.data)
@@ -71,28 +89,21 @@ const CategoriesItems = () => {
 
   return (
     <Grid container>
-      {/* <Grid item md={12}>
-        <Typography variant="h4">Deals and Promotions</Typography>
-      </Grid>
+      
+      
       <Grid item md={12}>
-          <br/>
-      </Grid>
-      <Grid item md={12}>
-        <Typography variant="subtitle1">
-          Shop Today’s Deals, Lightning Deals, and limited-time discounts
-        </Typography>
-        <br/>
+       
         <Typography variant="h6">
           
         {products?.length > 0 ? <div> </div> : <div> No Product found! </div>
       }
         </Typography>
-      </Grid> */}
+      </Grid>
 
-      {/* <Grid item md={7}>
+      <Grid item md={7}>
           <div style={{display:'flex'}}>
         <label style={{marginRight:'20px'}}>Sort by:</label> 
-        <Select />
+
 
         <TextField
         style={{marginLeft:20}}
@@ -108,15 +119,12 @@ const CategoriesItems = () => {
         onChange={handleMaxPrice}
         />
 
-<TextField
-        style={{marginLeft:20}}
-        label="Category"
-        />
         </div>
         <Button onClick={handleFilter}>
           Apply
         </Button>
-      </Grid> */}
+
+      </Grid>
       <Grid item md={5}></Grid>
       <Grid item md={12}>
           <br/>
