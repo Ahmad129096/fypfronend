@@ -178,6 +178,8 @@ function UserPage(props) {
         setName(response.data.data.name);
         setPhone(response.data.data.phoneNumber);
         setNewsCover(response.data.data.appartment);
+        setToggle(response.data.data.isDeactived);
+        console.log('rsssssssssssssssssss',response.data.data)
       })
       .catch(function (error) {
         console.log(error);

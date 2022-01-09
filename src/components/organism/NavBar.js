@@ -283,11 +283,12 @@ export default function NavBar() {
                 <select
                   onChange={(e) => {
                     localStorage.setItem("lang", e.target.value);
-                    history.push("/");
+                    window.location.href = "/"
                   }}
                 >
-                  <option value="en">EN</option>
+                  <option>{localStorage.getItem("lang")}</option>
                   <option value="de">Urdu</option>
+                  <option value="en">EN</option>
                 </select>
               </Badge>
             </IconButton>

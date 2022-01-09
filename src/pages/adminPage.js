@@ -877,7 +877,8 @@ console.log(collection);
         <TableHead >
           <TableRow style={{background: '#16a085'}}>
             <TableCell style={{color: 'white'}}>Pet Name</TableCell>
-            {/* <TableCell>Owner</TableCell> */}
+            { <TableCell>Owner</TableCell> }
+            <TableCell>Owner Email</TableCell>
             <TableCell align="right" style={{color: 'white'}}>Edit</TableCell>
             <TableCell align="right" style={{color: 'white'}}>Delete</TableCell>
           </TableRow>
@@ -900,7 +901,8 @@ console.log(collection);
                 </TableCell>
                 
               ))} */}
-              
+                <TableCell align="left">{console.log(row)}{row?.user?.name}</TableCell>
+                <TableCell align="left">{console.log(row)}{row?.user?.email}</TableCell>
               <TableCell align="right" ><EditIcon style={{color:'green'}} onClick={()=>handleClickOpen()}/> 
               {open ? <EditProduct id={row._id} open={open} collection={collection} categories={categories} setOpen={setOpen} /> : null }
               </TableCell>
