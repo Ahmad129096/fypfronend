@@ -30,6 +30,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Select from "@mui/material/Select";
+import SimpleMap, { MapContainer } from "../components/organism/Map";
 import axios from "axios";
 import EditProduct from "../components/organism/EditProduct";
 import FilesDropzone from "../components/organism/filesDropZone";
@@ -61,10 +62,13 @@ function VendorPage(props) {
   const [listCategoriesBoolean, setListCategoriesBoolean] = React.useState(false);
   const [listUserBoolean, setListUserBoolean] = React.useState(false);
   const [newsBoolean, setNewsBoolean] = React.useState(false);
+  const [status, setStatus] = React.useState(null);
   const [newsBooleanList, setNewsBooleanList] = React.useState(false);
   const [ordersBoolean, setOrdersBoolean] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [editProduct,setEditProduct] = React.useState([]);
+  const [lat, setLat] = React.useState(null);
+  const [lng, setLng] = React.useState(null);
   const [image,setImage] = React.useState();
   const [img, setImg] = React.useState();
   const [listNews,setListNews] = React.useState([]);
@@ -147,6 +151,8 @@ function VendorPage(props) {
   }
 
 
+
+
   let vendorToken = localStorage.getItem('token');
   let decode = jwtDecode(vendorToken);
   console.log(decode);
@@ -162,7 +168,8 @@ function VendorPage(props) {
       setVName(response.data.data.name);
       setPhone(response.data.data.phoneNumber);
       setDelivery(response.data.data.cardExpire);
-      setVendorImage(response.data.data.appartment)
+      setVendorImage(response.data.data.appartment);
+      setDelivery(response.data.data.city);
 
     })
     .catch(function (error) {
@@ -177,7 +184,7 @@ function VendorPage(props) {
     let obj = {
       name: vName,
       phoneNumber: phone,
-      cardExpire: delivery
+      city: delivery
     }
     axios.patch(`http://localhost:5000/api/users/${decode._id}`, obj, {headers:{'Authorization':vendorToken}})
     .then(function (response) {
@@ -205,6 +212,36 @@ e.preventDefault();
   }
 
 
+
+  const getLocation = () => {
+    if (!navigator.geolocation) {
+      setStatus('Geolocation is not supported by your browser');
+    } else {
+      setStatus('Locating...');
+      navigator.geolocation.getCurrentPosition((position) => {
+        setStatus(null);
+        setLat(position.coords.latitude);
+        setLng(position.coords.longitude);
+        let location = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }
+      axios.patch(`http://localhost:5000/api/users/${decode._id}`,{location},
+      {headers: {
+        'Authorization': vendorToken,
+        'Content-Type': 'application/json',
+      }})
+      .then((res)=>{
+        console.log('updated location');
+      })
+      }, () => {
+        setStatus('Unable to retrieve your location');
+      });
+    }
+  }
+  
+
+  
   let handleInfo = () => {
     setActive('info');
     setInfoBool(true);
@@ -1111,22 +1148,36 @@ console.log(collection);
           />
         </div>
         {phoneError == false ? <div style={{color:'red',marginTop:10}}>Incorrect Mobile Number.</div>:<div></div>}
-        {/* <div style={{ display: "flex", marginTop: 30 }}>
+        <div style={{ display: "flex", marginTop: 30 }}>
         <TextField
             fullWidth
             name="Delivery"
             id="Delivery"
-            label="Delivery"
+            label="City"
             value={delivery}
             onChange={handleDelivery}
           />
-        </div> */}
+        </div> 
         <div style={{ display: "flex", marginTop: 30 }}>
         <Button type="submit" style={{backgroundColor:'black',color:'white',width:'100px'}} >Save</Button>
         </div>
         </form>
         </div>
         </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item md={6}>
+       
+            </Grid>
+            <Grid item md={6} style={{marginTop:20}}>
+            <div style={{display:'flex',marginBottom:20}}>
+  <button onClick={getLocation}>Get Location</button>
+   <p>{status}</p>
+  {lat && <p>Latitude: {lat}</p>}
+  {lng && <p>Longitude: {lng}</p>}
+        </div>
+            <SimpleMap lat={lat} lng={lng}/>
+            </Grid>
           </Grid>
          </Box>
     )}
