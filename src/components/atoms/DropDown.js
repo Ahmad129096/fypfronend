@@ -59,9 +59,9 @@ getCategories();
       >
         {category?.map((item,i)=>{
           return(
-          <NavLink to={`/category/${item.name}`} style={{textDecoration:'none', color: 'black'}}>
+          <a href={`/category/${item.name}`} style={{textDecoration:'none', color: 'black'}}>
               <MenuItem  onClick={handleClose}>{item.name}</MenuItem>
-            </NavLink>
+            </a>
           )
         })}
       </Menu>

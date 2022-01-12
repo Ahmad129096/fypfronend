@@ -112,7 +112,6 @@ function UserPage(props) {
       console.log("information updated");
       if(window.confirm("Are you sure you want to deactivate account?"))
       {
-        window.open("exit.html", "Thanks for Visiting!");
         setToggle(true);
         window.alert("Account has been deactivated")
         history.push("/user");

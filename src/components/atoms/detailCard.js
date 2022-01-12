@@ -79,6 +79,7 @@ export default function RecipeReviewCard(props) {
           <Avatar src={props.img} sx={{ bgcolor: red[500] }} aria-label="recipe">
           </Avatar>
         }
+        onClick={()=>moveToProduct(props.id)}
         title={
           <Typography variant="h6">
             {props.type}

@@ -5,7 +5,7 @@ import NavBar from './NavBar';
 import jwtDecode from 'jwt-decode';
 import io from 'socket.io-client';
 
-const SOCKET_URL = 'http://192.168.181.49:5000';
+const SOCKET_URL = 'http://192.168.1.6:5000';
 
 let Message = () => {
 
@@ -50,10 +50,13 @@ let Message = () => {
   }
 
   console.log(allChat,'all')
-  let getChat = (id) =>{
+  let getChat = (tid) =>{
     
-    console.log('clicked',id)
-    setChatId(id);
+    if(tid != id)
+    {
+      window.location.href = `/message/${tid}`
+    }
+    setChatId(tid);
     axios.get('http://localhost:5000/api/chats', {headers:{'Authorization':token}})
     .then((response)=>{
       console.log('chat recieved',response.data.data.filter(t=> t?.vendor?._id == userId));
@@ -62,7 +65,7 @@ let Message = () => {
     })
     .catch((error)=>{
       console.log(error)
-      console.log("kutta Billa")
+      
     })
 
 

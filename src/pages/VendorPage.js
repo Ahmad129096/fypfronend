@@ -784,18 +784,6 @@ console.log(collection);
             <ListItemText  />
           </ListItem>
       </List>
-          <List onClick={handleListCategories}>
-          <ListItem style={{cursor:'pointer'}}>
-            {active === 'cat' ? 
-            <ListItemIcon style={activeStyle}>
-            {int.list_categories}
-            </ListItemIcon> : 
-            <ListItemIcon>
-              {int.list_categories}
-            </ListItemIcon>}
-            <ListItemText  />
-          </ListItem>
-      </List>
         
       <Divider />
 
