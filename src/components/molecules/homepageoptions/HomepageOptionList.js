@@ -1,10 +1,11 @@
 import React from "react";
 import { Button, Link } from "@mui/material";
-import DropDown from "../atoms/DropDown";
+import DropDown from "../../atoms/DropDown";
 import { useHistory, NavLink } from "react-router-dom";
 import { Navbar, Container } from "react-bootstrap";
-import en from "../../locale/eng.json";
-import de from "../../locale/de.json";
+import en from "../../../locale/eng.json";
+import de from "../../../locale/de.json";
+import './index.css'
 
 const HomePageList = () => {
   let t = localStorage.getItem('lang') === 'en' ? en : de;
