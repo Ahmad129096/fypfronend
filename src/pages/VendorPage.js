@@ -741,7 +741,7 @@ console.log(collection);
   const drawer = (
     <div>
     <div style={{marginLeft:50,marginTop:50}}>
-    <Avatar src={`https://fyptest1.blob.core.windows.net/images/${vendorImage}`} style={{width:100, height:100}} />
+    <Avatar src={`https://fyp3.blob.core.windows.net/fyp/${vendorImage}`} style={{width:100, height:100}} />
     <div style={{display:'flex',justifyContent:'start',marginTop:10,marginLeft:5}} >
     {vName}
 </div>
@@ -1081,8 +1081,8 @@ console.log(collection);
           <Grid item md={6} xs={12}>
         <div style={{marginTop:'50px',display:'flex',borderRadius:'9px',padding:10,border:'#44adbd'}}>
         <img style={{margin:'0px auto',maxHeight:600,maxWidth:500,borderRadius:20}}
-         src={vendorImage === undefined || '' ? 'https://fyptest1.blob.core.windows.net/images/photo-1524024973431-2ad916746881.jfif' : 
-         `https://fyptest1.blob.core.windows.net/images/${vendorImage}`}/>
+         src={vendorImage === undefined || '' ? 'https://fyp3.blob.core.windows.net/fyp/photo-1524024973431-2ad916746881.jfif' : 
+         `https://fyp3.blob.core.windows.net/fyp/${vendorImage}`}/>
         </div>
             
     <div style={{display:'flex'}}>

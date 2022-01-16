@@ -73,7 +73,7 @@ const BlogPage = () => {
       <CardMedia
         component="img"
         height="200"
-        image={`https://fyptest1.blob.core.windows.net/images/${item.cover}`}
+        image={`https://fyp3.blob.core.windows.net/fyp/${item.cover}`}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">

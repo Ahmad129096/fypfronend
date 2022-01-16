@@ -306,8 +306,8 @@ function UserPage(props) {
               }}
               src={
                 newsCover === undefined || ""
-                  ? "https://fyptest1.blob.core.windows.net/images/photo-1524024973431-2ad916746881.jfif"
-                  : `https://fyptest1.blob.core.windows.net/images/${newsCover}`
+                  ? "https://fyp3.blob.core.windows.net/fyp/photo-1524024973431-2ad916746881.jfif"
+                  : `https://fyp3.blob.core.windows.net/fyp/${newsCover}`
               }
             />
           </div>
