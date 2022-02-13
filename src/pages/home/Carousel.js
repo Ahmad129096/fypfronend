@@ -53,8 +53,8 @@ let DemoCarousel = () =>{
 export default DemoCarousel;
 
 
-// src="https://fyptest1.blob.core.windows.net/images/photo-1524024973431-2ad916746881.jfif"
+// src="https://fyp3.blob.core.windows.net/fyp/photo-1524024973431-2ad916746881.jfif"
 
-// src="https://fyptest1.blob.core.windows.net/images/download.jpg"
+// src="https://fyp3.blob.core.windows.net/fyp/download.jpg"
 
-// src="https://fyptest1.blob.core.windows.net/images/1.2.jpg"
+// src="https://fyp3.blob.core.windows.net/fyp/1.2.jpg"

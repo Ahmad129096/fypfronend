@@ -68,7 +68,7 @@ const CustomizedProduct = () => {
         {
           return (
             <div  onClick={()=>redirectToCategory(item?.category?.name)}  style={{ marginLeft: i==1 ? '0px':'40px', marginTop: "10px"}}>
-              <SimpleCard type={item?.category?.name || ''} image={`https://fyptest1.blob.core.windows.net/images/${item?.images[0]}`} />
+              <SimpleCard type={item?.category?.name || ''} image={`https://fyp3.blob.core.windows.net/fyp/${item?.images[0]}`} />
             </div>
           );
         }

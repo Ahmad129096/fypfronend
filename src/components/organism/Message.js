@@ -3,9 +3,17 @@ import axios from 'axios';
 import React, { useState,useEffect } from 'react';
 import NavBar from './NavBar';
 import jwtDecode from 'jwt-decode';
+import io from 'socket.io-client';
+
+const SOCKET_URL = 'http://192.168.1.6:5000';
 
 let Message = () => {
 
+  const socket = io(SOCKET_URL);
+    socket.on('connection', () => {
+        console.log(`I'm connected with the back-end`);
+});
+  
   var url = window.location.pathname;
   var id = url.substring(url.lastIndexOf("/") + 1);
   let token = localStorage.getItem("token") ;
@@ -13,10 +21,10 @@ let Message = () => {
   let userId = user._id;
   let [chatId, setChatId] = useState(id);
   console.log(userId)
-  //let chatId = "61acf291eb58a1399018e0e1";
   let [message, setMessage] = useState('');
   let [chat, setChat] = useState([]);
   let [allChat,setAllChat] = useState([]);
+
   
 
 
@@ -42,10 +50,13 @@ let Message = () => {
   }
 
   console.log(allChat,'all')
-  let getChat = (id) =>{
-    console.log('clicked',id)
-    setInterval(()=>{
-    setChatId(id);
+  let getChat = (tid) =>{
+    
+    if(tid != id)
+    {
+      window.location.href = `/message/${tid}`
+    }
+    setChatId(tid);
     axios.get('http://localhost:5000/api/chats', {headers:{'Authorization':token}})
     .then((response)=>{
       console.log('chat recieved',response.data.data.filter(t=> t?.vendor?._id == userId));
@@ -54,13 +65,21 @@ let Message = () => {
     })
     .catch((error)=>{
       console.log(error)
-      console.log("kutta Billa")
+      
     })
-  },2000)
+
 
   }
 
   console.log(chat);
+
+  let getMessages = () =>{
+    axios.get('http://localhost:5000/api/messages/61d5fd6c8d90875ed0aa458e', {headers:{'Authorization':token}})
+    .then((response)=>{
+      console.log('mwoga ',response);
+ 
+    })
+  }
 
   let sendMessage = () =>{
     let obj = {
@@ -71,18 +90,30 @@ let Message = () => {
     axios.post('http://localhost:5000/api/messages',obj, {headers:{'Authorization':token}})
     .then((response)=>{
       console.log('message sent');
+      socket.emit('sendMessage', response.data.data)
     })
     .catch((error)=>{
       console.log(error)
     })
-    setMessage('');
+
   }
 
   useEffect(()=>{
      allChats();
      getChat(id);
+   
   },[])
 
+
+
+useEffect(async function () {
+  
+    socket.on('newMessage', function (data) {
+        setMessage('')
+        getChat(id);
+        console.log('hohohohohohhoho')
+    })
+}, [])
 
 
   console.log(allChat);

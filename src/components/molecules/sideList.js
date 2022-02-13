@@ -75,7 +75,7 @@ const SideList = () => {
       {product.map(function (item, i) {
         return (
           <div key={i} style={{ marginTop: "10px" }}>
-         <SimpleCard type={item?.category?.name || ''} image={`https://fyptest1.blob.core.windows.net/images/${item.images[0]}`} />
+         <SimpleCard type={item?.category?.name || ''} image={`https://fyp3.blob.core.windows.net/fyp/${item.images[0]}`} />
           </div>
         );
       })}

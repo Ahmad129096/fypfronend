@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Divider, Grid } from "@mui/material";
 import MiniBar from '../components/organism/MiniBar';
 import NavBar from '../components/organism/NavBar';
-import HomePageList from '../components/molecules/HomepageOptionList';
+import HomePageList from '../components/molecules/homepageoptions/HomepageOptionList';
 import ShippingItems from '../components/molecules/shippingItems';
 
 

@@ -171,7 +171,66 @@ export default function NavBar() {
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        <p
+          onClick={() => {
+            userId._id != "61b7a2b689ea254b0c1a1486"
+              ? history.push("/user")
+              : history.push("/login");
+          }}
+        >
+          Profile
+        </p>
+      </MenuItem>
+      <MenuItem>
+        <MailIcon
+          onClick={() => {
+            userId._id != "61b7a2b689ea254b0c1a1486"
+              ? history.push("/message")
+              : enqueueSnackbar("Please login first to view this page!", {
+                  variant: "error",
+                  autoHideDuration: 5000,
+                });
+          }}
+        />
+      </MenuItem>
+      <MenuItem>
+        <Badge color="error">
+          {userId._id == "61b7a2b689ea254b0c1a1486" ? (
+            <Button
+              style={{ color: "black" }}
+              onClick={() => {
+                history.push("/login");
+              }}
+            >
+              login
+            </Button>
+          ) : (
+            <Button
+              style={{ color: "black" }}
+              onClick={() => {
+                localStorage.clear();
+                history.push("/login");
+              }}
+            >
+              Logout
+            </Button>
+          )}
+        </Badge>
+      </MenuItem>
+      <MenuItem>
+        <Badge color="error">
+          <select
+            style={{ fontSize: 14 }}
+            onChange={(e) => {
+              localStorage.setItem("lang", e.target.value);
+              window.location.href = "/";
+            }}
+          >
+            <option>{localStorage.getItem("lang")}</option>
+            <option value="de">Urdu</option>
+            <option value="en">EN</option>
+          </select>
+        </Badge>
       </MenuItem>
     </Menu>
   );
@@ -260,7 +319,9 @@ export default function NavBar() {
                     onClick={() => {
                       history.push("/login");
                     }}
-                  >login</Button>
+                  >
+                    login
+                  </Button>
                 ) : (
                   <Button
                     style={{ color: "white" }}
@@ -281,13 +342,15 @@ export default function NavBar() {
             >
               <Badge color="error">
                 <select
+                  style={{ fontSize: 14 }}
                   onChange={(e) => {
                     localStorage.setItem("lang", e.target.value);
-                    history.push("/");
+                    window.location.href = "/";
                   }}
                 >
-                  <option value="en">EN</option>
+                  <option>{localStorage.getItem("lang")}</option>
                   <option value="de">Urdu</option>
+                  <option value="en">EN</option>
                 </select>
               </Badge>
             </IconButton>

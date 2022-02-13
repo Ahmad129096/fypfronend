@@ -1,11 +1,18 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Button, Divider, Grid } from "@mui/material";
 import MiniBar from '../components/organism/MiniBar';
 import NavBar from '../components/organism/NavBar';
 import CategoriesItems from '../components/organism/CategoriesItemsList';
-import HomePageList from '../components/molecules/HomepageOptionList';
+import HomePageList from '../components/molecules/homepageoptions/HomepageOptionList';
 
 const CategoryPage = () => {
+    // let change = useParams();
+     const [change, setChange] = useState(window.location.pathname);
+
+    React.useEffect (()=>{
+
+    },[change])
+
     return (
      <Grid container>
          <Grid item md={12}>

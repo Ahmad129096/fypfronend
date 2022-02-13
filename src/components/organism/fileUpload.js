@@ -45,14 +45,28 @@ const FileUpload = (props) => {
         variant: 'error',
         autoHideDuration: 2000
       });
-      setUploading(false);
+       setUploading(false);
     }
     
     // *** UPLOAD TO AZURE STORAGE ***
+    
     else{
       for(let i=0 ; i<props?.up?.length; ++i)
     {
-      var blobsInContainer = await uploadFileToBlob(fileSelected[i]);
+      if(!fileSelected[i].name.match(/\.(jpg|jpeg|png|gif)$/)){
+        enqueueSnackbar('Please Upload an Image', {
+          variant: 'error',
+          autoHideDuration: 2000
+        });
+      }
+      else{
+        enqueueSnackbar('File has been uploaded successfully', {
+          variant: 'success',
+          autoHideDuration: 2000
+        });
+        var blobsInContainer = await uploadFileToBlob(fileSelected[i]);
+      }
+      
     }
     
     // prepare UI for results

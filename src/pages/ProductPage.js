@@ -31,6 +31,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+import SimpleMap from "../components/organism/Map";
 import { flexbox } from "@mui/system";
 import { Message, Money } from "@material-ui/icons";
 import {useHistory,NavLink} from 'react-router-dom'
@@ -280,7 +281,7 @@ const ProductPage = () => {
         history.push("/login")
        })();
       }
-  },[rate])
+  },[rate,product])
   React.useLayoutEffect(()=>{
 
   },[rate])
@@ -336,10 +337,8 @@ const ProductPage = () => {
               <Grid item md={10}>
                 <DemoCarousel image={product?.images} />
               </Grid>
-              <Grid item md={1}></Grid>
 
-              <Grid item md={1}></Grid>
-              <Grid item md={5}>
+              <Grid item md={4}>
                 <div>
                   <div
                     style={{
@@ -431,7 +430,7 @@ const ProductPage = () => {
                   <label>Give Ratings here</label>
                 </div>
               </Grid>
-              <Grid item md={5}>
+              <Grid item md={4}>
                 <div style={{ marginLeft: 50 }}>
                   <div
                     style={{
@@ -488,7 +487,10 @@ const ProductPage = () => {
                   </div>
                 </div>
               </Grid>
-              <Grid item md={1}></Grid>
+              <Grid item md={4}>
+                <SimpleMap lat={product?.user?.location?.lat} lng={product?.user?.location?.lng}  />
+                {console.log('product?.vendor?.location?.lng',product?.vendor?.location?.lng)}
+              </Grid>
             </Grid>
           </Grid>
           <Grid item md={1}></Grid>

@@ -40,6 +40,7 @@ import { useHistory } from 'react-router-dom'
 import { IoIosAddCircle,IoIosListBox } from "react-icons/io";
 import {BiCategory} from 'react-icons/bi'
 import {ImUsers} from 'react-icons/im'
+import { fontWeight } from "@mui/system";
 const drawerWidth = 240;
 
 function AdminPage(props) {
@@ -605,12 +606,12 @@ console.log(collection);
   }
 
   const activeStyle = {
-    color: "orange"
+    color: "red"
   }
 
  console.log(editProduct)
   const drawer = (
-    <div style={{fontFamily:'sans-serif',backgroundColor:'wheat',color:'black'}}>
+    <div style={{fontFamily:'sans-serif',background: '#16a085',color:'white'}}>
     <div style={{marginLeft:70,marginTop:50}}>
     <Avatar style={{width:100, height:100}} />
     <Typography style={{marginLeft:5,marginTop:20}}>
@@ -706,7 +707,7 @@ console.log(collection);
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
-          backgroundColor:'black'
+          backgroundColor:'#16a085'
         }}
       >
         <Toolbar>
@@ -823,7 +824,7 @@ console.log(collection);
           />
         </div>
         <div style={{marginTop:30}}>
-        <Button style={{color:'black',border:'1px solid black', backgroundColor: 'black', color: 'white'}} variant="outlined" onClick={handleSubmit}> ADD Collection </Button>
+        <Button style={{color:'black',border:'1px solid black', backgroundColor: '#16a085', color: 'white'}} variant="outlined" onClick={handleSubmit}> ADD Collection </Button>
         </div>
         <div style={{ display: "flex", marginTop: 20 }}>
           <TextField
@@ -838,7 +839,7 @@ console.log(collection);
 
         </div>
         <div style={{marginTop:30}}>
-        <Button style={{color:'black',border:'1px solid black', backgroundColor: 'black', color: 'white'}} variant="outlined" onClick={addCategory}> ADD Pet </Button>
+        <Button style={{color:'black',border:'1px solid black', backgroundColor: '#16a085', color: 'white'}} variant="outlined" onClick={addCategory}> ADD Pet </Button>
         </div>
         <div style={{ display: "flex", marginTop: 20 }}>
           <TextField
@@ -853,7 +854,7 @@ console.log(collection);
 
         </div>
         <div style={{marginTop:30}}>
-        <Button style={{color:'black',border:'1px solid black', backgroundColor: 'black', color: 'white'}} variant="outlined" onClick={addSubCategory}> ADD Breed </Button>
+        <Button style={{color:'black',border:'1px solid black', backgroundColor: '#16a085', color: 'white'}} variant="outlined" onClick={addSubCategory}> ADD Breed </Button>
         </div>
       
         </form>
@@ -873,26 +874,39 @@ console.log(collection);
           <Toolbar />
           <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Pet Name</TableCell>
-            <TableCell align="right">Edit</TableCell>
-            <TableCell align="right">Delete</TableCell>
+        <TableHead >
+          <TableRow style={{background: '#16a085'}}>
+            <TableCell style={{color: 'white'}}>Pet Name</TableCell>
+            { <TableCell>Owner</TableCell> }
+            <TableCell>Owner Email</TableCell>
+            <TableCell align="right" style={{color: 'white'}}>Edit</TableCell>
+            <TableCell align="right" style={{color: 'white'}}>Delete</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {products.map((row) => (
             <TableRow
               key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 }, backgroundColor: '#94e3a6' }}
             >
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align="right"><EditIcon  onClick={()=>handleClickOpen()}/> 
+              {/* {users.map((user)=>(
+                
+              
+                  <TableCell component="th" scope="row">
+                  {user.email}
+                  {console.log("These are the pets adn ids",row)}
+                </TableCell>
+                
+              ))} */}
+                <TableCell align="left">{console.log(row)}{row?.user?.name}</TableCell>
+                <TableCell align="left">{console.log(row)}{row?.user?.email}</TableCell>
+              <TableCell align="right" ><EditIcon style={{color:'green'}} onClick={()=>handleClickOpen()}/> 
               {open ? <EditProduct id={row._id} open={open} collection={collection} categories={categories} setOpen={setOpen} /> : null }
               </TableCell>
-              <TableCell align="right"><DeleteIcon onClick={()=>deleteProduct(row._id)}/></TableCell>
+              <TableCell align="right"><DeleteIcon style={{color:'red'}} onClick={()=>deleteProduct(row._id)}/></TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -914,23 +928,23 @@ console.log(collection);
      <TableContainer component={Paper}>
  <Table sx={{ minWidth: 650 }} aria-label="simple table">
    <TableHead>
-     <TableRow>
-       <TableCell>Category Name</TableCell>
-       <TableCell align="right">Edit</TableCell>
-       <TableCell align="right">Delete</TableCell>
+     <TableRow style={{background: '#16a085'}}>
+       <TableCell style={{color: 'white'}}>Category Name</TableCell>
+       <TableCell align="right" style={{color: 'white'}}>Edit</TableCell>
+       <TableCell align="right" style={{color: 'white'}}>Delete</TableCell>
      </TableRow>
    </TableHead>
    <TableBody>
      {categories.map((row) => (
        <TableRow
          key={row.name}
-         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+         sx={{ '&:last-child td, &:last-child th': { border: 0 }, backgroundColor: '#94e3a6' }}
        >
          <TableCell component="th" scope="row">
            {row.name}
          </TableCell>
-         <TableCell align="right"><EditIcon /> </TableCell>
-         <TableCell align="right"><DeleteIcon onClick={()=>deleteCategory(row._id)}/></TableCell>
+         <TableCell align="right"><EditIcon style={{color:'green'}} /> </TableCell>
+         <TableCell align="right"><DeleteIcon style={{color:'red'}} onClick={()=>deleteCategory(row._id)}/></TableCell>
        </TableRow>
      ))}
    </TableBody>
@@ -1011,12 +1025,12 @@ console.log(collection);
       {listNews.map((row) => (
         <TableRow
           key={row.name}
-          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+          sx={{ '&:last-child td, &:last-child th': { border: 0 }, backgroundColor: '#94e3a6' }}
         >
           <TableCell component="th" scope="row">
             {row.title}
           </TableCell>
-          <TableCell align="right"><DeleteIcon onClick={()=>deleteNews(row._id)}/></TableCell>
+          <TableCell align="right"><DeleteIcon style={{color:'red'}} onClick={()=>deleteNews(row._id)}/></TableCell>
         </TableRow>
       ))}
     </TableBody>
@@ -1055,7 +1069,7 @@ console.log(collection);
       {listOrders.map((row) => (
         <TableRow
           key={row.name}
-          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+          sx={{ '&:last-child td, &:last-child th': { border: 0 }, backgroundColor: '#94e3a6' }}
         >
           <TableCell component="th" scope="row">
             {row.user._id}
@@ -1094,26 +1108,30 @@ console.log(collection);
      <TableContainer component={Paper}>
  <Table sx={{ minWidth: 650 }} aria-label="simple table">
    <TableHead>
-     <TableRow>
-       <TableCell>User Name</TableCell>
-       <TableCell align="right">Delete</TableCell>
+     <TableRow style={{background: '#16a085'}}>
+       <TableCell style={{color: 'white'}}>User Name</TableCell>
+       <TableCell style={{color: 'white'}}>User Email</TableCell>
+       <TableCell align="right" style={{color: 'white'}}>Delete</TableCell>
      </TableRow>
    </TableHead>
    <TableBody>
      {users.map((row) => (
        <TableRow
          key={row.name}
-         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+         sx={{ '&:last-child td, &:last-child th': { border: 0 }, backgroundColor: '#94e3a6' }}
        >
          <TableCell component="th" scope="row">
            {row.name}
          </TableCell>
-         <TableCell align="right"><DeleteIcon onClick={()=>deleteUser(row._id)}/></TableCell>
+         <TableCell component="th" scope="row">
+           {row.email}
+         </TableCell>
+         <TableCell align="right"><DeleteIcon style={{color:'red'}} onClick={()=>deleteUser(row._id)}/></TableCell>
        </TableRow>
      ))}
    </TableBody>
  </Table>
-</TableContainer> )
+</TableContainer>
     </Box>
         )}
 

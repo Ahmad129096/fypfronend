@@ -1,0 +1,17 @@
+@media only screen and (max-width: 600px) {
+    li,Button {
+      font-size: 12px;
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    li,Button {
+      font-size: 8px;
+    }
+  }
+
+  .listitems{
+      color: black;
+      font-family: serif;
+      font-size: 30;
+  }

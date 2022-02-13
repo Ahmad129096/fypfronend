@@ -1,6 +1,6 @@
 import { Button, Divider, Grid } from "@mui/material";
 import React, { useState , useEffect} from "react";
-import HomePageList from "../../components/molecules/HomepageOptionList";
+import HomePageList from "../../components/molecules/homepageoptions/HomepageOptionList";
 import CustomizedProduct from "../../components/molecules/custominzedProduct";
 import SideList from "../../components/molecules/sideList";
 import Footer from "../../components/organism/Footer";
