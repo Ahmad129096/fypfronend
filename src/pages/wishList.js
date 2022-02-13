@@ -121,7 +121,7 @@ const WishList = () => {
             price={item.price}
             desc={item.description}
             id={item._id}
-            img={`https://fyp3.blob.core.windows.net/fyp/${item.vendor.appartment}`}
+            img={`https://fyp3.blob.core.windows.net/fyp/${item.vendor?.appartment}`}
             rate={item.ratings.value}
            
 
