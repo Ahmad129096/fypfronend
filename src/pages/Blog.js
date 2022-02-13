@@ -3,7 +3,7 @@ import { Button, Divider, Grid } from "@mui/material";
 import MiniBar from '../components/organism/MiniBar';
 import NavBar from '../components/organism/NavBar';
 import CategoriesItems from '../components/organism/CategoriesItemsList';
-import HomePageList from '../components/molecules/HomepageOptionList';
+import HomePageList from '../components/molecules/homepageoptions/HomepageOptionList';
 import axios from 'axios'
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -73,7 +73,7 @@ const BlogPage = () => {
       <CardMedia
         component="img"
         height="200"
-        image={`https://fyptest1.blob.core.windows.net/images/${item.cover}`}
+        image={`https://fyp3.blob.core.windows.net/fyp/${item.cover}`}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">

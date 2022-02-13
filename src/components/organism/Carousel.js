@@ -13,7 +13,7 @@ let DemoCarousel = (props) =>{
                 {
                     image?.map((t)=>(
                         <div>
-                        <img style={{maxHeight:600,padding:5,borderRadius:'30px'}} src={`https://fyptest1.blob.core.windows.net/images/${t}`} />
+                        <img style={{maxHeight:600,padding:5,borderRadius:'30px'}} src={`https://fyp3.blob.core.windows.net/fyp/${t}`} />
     
                     </div>
                     ))

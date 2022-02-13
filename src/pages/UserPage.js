@@ -112,7 +112,6 @@ function UserPage(props) {
       console.log("information updated");
       if(window.confirm("Are you sure you want to deactivate account?"))
       {
-        window.open("exit.html", "Thanks for Visiting!");
         setToggle(true);
         window.alert("Account has been deactivated")
         history.push("/user");
@@ -178,6 +177,8 @@ function UserPage(props) {
         setName(response.data.data.name);
         setPhone(response.data.data.phoneNumber);
         setNewsCover(response.data.data.appartment);
+        setToggle(response.data.data.isDeactived);
+        console.log('rsssssssssssssssssss',response.data.data)
       })
       .catch(function (error) {
         console.log(error);
@@ -305,8 +306,8 @@ function UserPage(props) {
               }}
               src={
                 newsCover === undefined || ""
-                  ? "https://fyptest1.blob.core.windows.net/images/photo-1524024973431-2ad916746881.jfif"
-                  : `https://fyptest1.blob.core.windows.net/images/${newsCover}`
+                  ? "https://fyp3.blob.core.windows.net/fyp/photo-1524024973431-2ad916746881.jfif"
+                  : `https://fyp3.blob.core.windows.net/fyp/${newsCover}`
               }
             />
           </div>

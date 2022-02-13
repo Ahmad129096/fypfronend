@@ -1,10 +1,13 @@
 import React from "react";
 import { Form, Input, TextArea, Button } from "semantic-ui-react";
 import Swal from "sweetalert2";
+import {  Grid } from "@mui/material";
 import emailjs from "emailjs-com";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import "./index.css";
+import "./service.css";
+import MiniBar from '../../components/organism/MiniBar';
+import NavBar from '../../components/organism/NavBar';
 
 let Services = () => {
   const [email, setEmail] = React.useState("");
@@ -56,6 +59,12 @@ let Services = () => {
   }, []);
 
   return (
+    <div>
+      <Grid item md={12}>
+             <MiniBar/>
+             <NavBar/>
+         </Grid>
+  
     <div className="container">
       <div className="content">
         <div className="left-side">
@@ -122,6 +131,7 @@ let Services = () => {
           </form>
         </div>
       </div>
+    </div>
     </div>
   );
 };
